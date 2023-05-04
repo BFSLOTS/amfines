@@ -2,76 +2,79 @@
 
 namespace App\Http\Controllers\Gateway\StripeJs;
 
-use App\Models\Deposit;
-use App\Http\Controllers\Gateway\PaymentController;
-use Illuminate\Http\Request;
+use App\Constants\Status;
 use App\Http\Controllers\Controller;
-use Auth;
+use App\Http\Controllers\Gateway\PaymentController;
+use App\Models\Deposit;
+use Illuminate\Http\Request;
 use Session;
 use Stripe\Charge;
 use Stripe\Customer;
 use Stripe\Stripe;
 
+class ProcessController extends Controller {
 
-class ProcessController extends Controller
-{
-
-    public static function process($deposit)
-    {
-        $StripeJSAcc = json_decode($deposit->gatewayCurrency()->gateway_parameter);
-        $val['key'] = $StripeJSAcc->publishable_key;
-        $val['name'] = Auth::user()->username;
+    public static function process($deposit) {
+        $StripeJSAcc        = json_decode($deposit->gatewayCurrency()->gateway_parameter);
+        $val['key']         = $StripeJSAcc->publishable_key;
+        $val['name']        = auth()->user()->username;
         $val['description'] = "Payment with Stripe";
-        $val['amount'] = $deposit->final_amo * 100;
-        $val['currency'] = $deposit->method_currency;
-        $send['val'] = $val;
-
+        $val['amount']      = $deposit->final_amo * 100;
+        $val['currency']    = $deposit->method_currency;
+        $send['val']        = $val;
 
         $alias = $deposit->gateway->alias;
 
-        $send['src'] = "https://checkout.stripe.com/checkout.js";
-        $send['view'] = 'user.payment.' . $alias;
+        $send['src']    = "https://checkout.stripe.com/checkout.js";
+        $send['view']   = 'user.payment.' . $alias;
         $send['method'] = 'post';
-        $send['url'] = route('ipn.'.$deposit->gateway->alias);
+        $send['url']    = route('ipn.' . $deposit->gateway->alias);
         return json_encode($send);
     }
 
-    public function ipn(Request $request)
-    {
+    public function ipn(Request $request) {
 
-        $track = Session::get('Track');
+        $track   = Session::get('Track');
         $deposit = Deposit::where('trx', $track)->orderBy('id', 'DESC')->first();
-        if ($deposit->status == 1) {
+        if ($deposit->status == Status::PAYMENT_SUCCESS) {
             $notify[] = ['error', 'Invalid request.'];
-            return redirect()->route(gatewayRedirectUrl())->withNotify($notify);
+            return to_route(gatewayRedirectUrl())->withNotify($notify);
         }
         $StripeJSAcc = json_decode($deposit->gatewayCurrency()->gateway_parameter);
-
 
         Stripe::setApiKey($StripeJSAcc->secret_key);
 
         Stripe::setApiVersion("2020-03-02");
 
-        $customer =  Customer::create([
-            'email' => $request->stripeEmail,
-            'source' => $request->stripeToken,
-        ]);
+        try {
+            $customer = Customer::create([
+                'email'  => $request->stripeEmail,
+                'source' => $request->stripeToken,
+            ]);
+        } catch (\Exception$e) {
+            $notify[] = ['success', $e->getMessage()];
+            return to_route(gatewayRedirectUrl())->withNotify($notify);
+        }
 
-        $charge = Charge::create([
-            'customer' => $customer->id,
-            'description' => 'Payment with Stripe',
-            'amount' => $deposit->final_amo * 100,
-            'currency' => $deposit->method_currency,
-        ]);
-
+        try {
+            $charge = Charge::create([
+                'customer'    => $customer->id,
+                'description' => 'Payment with Stripe',
+                'amount'      => $deposit->final_amo * 100,
+                'currency'    => $deposit->method_currency,
+            ]);
+        } catch (\Exception$e) {
+            $notify[] = ['success', $e->getMessage()];
+            return to_route(gatewayRedirectUrl())->withNotify($notify);
+        }
 
         if ($charge['status'] == 'succeeded') {
-            PaymentController::userDataUpdate($deposit->trx);
-            $notify[] = ['success', 'Payment captured successfully.'];
-            return redirect()->route(gatewayRedirectUrl(true))->withNotify($notify);
-        }else{
-            $notify[] = ['success', 'Failed to process.'];
-            return redirect()->route(gatewayRedirectUrl())->withNotify($notify);
+            PaymentController::userDataUpdate($deposit);
+            $notify[] = ['success', 'Payment captured successfully'];
+            return to_route(gatewayRedirectUrl(true))->withNotify($notify);
+        } else {
+            $notify[] = ['success', 'Failed to process'];
+            return to_route(gatewayRedirectUrl())->withNotify($notify);
         }
     }
 }

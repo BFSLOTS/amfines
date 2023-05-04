@@ -1,1 +1,1 @@
-<?php $timezone = 'Asia/Dhaka' ?>
+<?php $timezone = 'UTC' ?>

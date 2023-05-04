@@ -46,3 +46,17 @@ function secure_password(input){
         $('.minimum').addClass('success');
     }
 }
+
+(function ($) {
+    $('input[name=password]').on('input',function(){
+        secure_password($(this));
+    });
+
+    $('[name=password]').focus(function () {
+        $(this).closest('.form-group').addClass('hover-input-popup');
+    });
+
+    $('[name=password]').focusout(function () {
+        $(this).closest('.form-group').removeClass('hover-input-popup');
+    });
+})(jQuery);

@@ -1,91 +1,96 @@
-@extends($activeTemplate.'layouts.frontend')
+@extends($activeTemplate . 'layouts.master')
 @section('content')
-    @include($activeTemplate.'partials.breadcrumb')
-
-    <section class="dashboard-section bg--section pt-120">
-        <div class="container">
-            <div class="pb-120">
-                <div class="message__chatbox bg--body">
-                    <div class="message__chatbox__header">
-                        <h5 class="title">@lang('Create New Ticket')</h5>
-                        <a href="{{route('ticket') }}" class="cmn--btn btn--sm">@lang('My Support Ticket')</a>
-                    </div>
-                    <div class="message__chatbox__body">
-                        <form class="message__chatbox__form row" action="{{route('ticket.store')}}"  method="POST" enctype="multipart/form-data" onsubmit="return submitUserForm();">
+<div class="pt-120 pb-120">
+    <div class="container">
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="{{ route('ticket.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
-                            <div class="form--group col-sm-6">
-                                <label for="fname" class="cmn--label">@lang('Your Name')</label>
-                                <input type="text" class="form-control form--control" name="name" value="{{@$user->firstname . ' '.@$user->lastname}}" readonly>
-                            </div>
-                            <div class="form--group col-sm-6">
-                                <label for="username" class="cmn--label">@lang('Email address')</label>
-                                <input type="email" class="form-control form--control" name="email" value="{{@$user->email}}" readonly>
-                            </div>
-                            <div class="form--group col-sm-6">
-                                <label for="subject" class="cmn--label">@lang('Subject')</label>
-                                <input type="text" id="subject" name="subject" class="form-control form--control">
-                            </div>
-                            <div class="form--group col-sm-6">
-                                <label for="subject" class="cmn--label">@lang('Priority')</label>
-                                <select class="form-control form--control w-100" name="priority">
-                                    <option value="3">@lang('High')</option>
-                                    <option value="2">@lang('Medium')</option>
-                                    <option value="1">@lang('Low')</option>
-                                </select>
-                            </div>
-                            <div class="form--group col-sm-12">
-                                <label for="message" class="cmn--label">@lang('Your Message')</label>
-                                <textarea class="form-control form--control"  name="message">{{old('message')}}</textarea>
-                            </div>
-                            <div class="form--group col-sm-12">
-                                <div class="d-flex">
-                                    <div class="left-group col p-0">
-                                        <label for="file2" class="cmn--label">@lang('Attachments')</label>
-                                        <input type="file" class="overflow-hidden form-control form--control mb-2" name="attachments[]">
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="form-label">@lang('Name')</label>
+                                    <input class="form-control form--control" name="name" type="text" value="{{ @$user->firstname . ' ' . @$user->lastname }}" required readonly>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="form-label">@lang('Email Address')</label>
+                                    <input class="form-control form--control" name="email" type="email" value="{{ @$user->email }}" required readonly>
+                                </div>
 
-                                        <div id="fileUploadsContainer"></div>
-
-                                        <span class="info fs--14">@lang('Allowed File Extensions'): .@lang('jpg'), .@lang('jpeg'), .@lang('png'), .@lang('pdf'), .@lang('doc'), .@lang('docx')</span>
-                                    </div>
-                                    <div class="add-area">
-                                        <label class="cmn--label d-block">&nbsp;</label>
-                                        <a href="javascript:void(0)" class="cmn--btn btn--sm bg--base ms-2 ms-md-4 form--control addFile" type="button"><i class="las la-plus"></i></a>
-                                    </div>
+                                <div class="form-group col-md-6">
+                                    <label class="form-label">@lang('Subject')</label>
+                                    <input class="form-control form--control" name="subject" type="text" value="{{ old('subject') }}" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="form-label">@lang('Priority')</label>
+                                    <select class="form-control form--control form-select" name="priority" required>
+                                        <option value="3">@lang('High')</option>
+                                        <option value="2">@lang('Medium')</option>
+                                        <option value="1">@lang('Low')</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 form-group">
+                                    <label class="form-label">@lang('Message')</label>
+                                    <textarea class="form-control form--control" id="inputMessage" name="message" rows="6" required>{{ old('message') }}</textarea>
                                 </div>
                             </div>
-                            <div class="form--group col-sm-12 mb-0">
-                                <button type="submit" class="cmn--btn w-100 justify-content-center">@lang('Submit')</button>
+
+                            <div class="form-group d-flex my-2 gap-2">
+                                <div class="position-relative w-100">
+                                    <input class="form-control custom--file-upload" id="inputAttachments" name="attachments[]" type="file" />
+                                    <label for="inputAttachments">@lang('Attachments')</label>
+                                </div>
+                                <button class="cmn-btn btn-sm addFile flex-shrink-0" type="button"><i class="las la-plus"></i></button>
                             </div>
+                            <div id="fileUploadsContainer"></div>
+                            <p class="ticket-attachments-message text-muted">
+                                @lang('Allowed File Extensions'): .@lang('jpg'), .@lang('jpeg'), .@lang('png'), .@lang('pdf'), .@lang('doc'), .@lang('docx')
+                            </p>
+
+                            <button class="cmn-btn w-100 mt-3" type="submit"><i class="fa fa-paper-plane"></i>&nbsp;@lang('Submit')</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</div>
 @endsection
 
+@push('style')
+<style>
+    .input-group-text:focus {
+        box-shadow: none !important;
+    }
+</style>
+@endpush
 
 @push('script')
-    <script>
-        (function ($) {
+<script>
+    (function($) {
             "use strict";
-            $('.delete-message').on('click', function (e) {
-                $('.message_id').val($(this).data('id'));
-            });
-            $('.addFile').on('click',function(){
-                $("#fileUploadsContainer").append(
-                    `<div class="input-group">
-                        <input type="file" class="overflow-hidden form-control form--control mt-2 mb-2" name="attachments[]">
-                        <div class="input-group-append support-input-group">
-                            <a href="javascript:void(0)" class="input-group-text cmn--btn btn--sm bg--danger ms-2 ms-md-4 remove-btn">x</a>
+            var fileAdded = 0;
+            $('.addFile').on('click', function() {
+                if (fileAdded >= 4) {
+                    notify('error', 'You\'ve added maximum number of file');
+                    return false;
+                }
+                fileAdded++;
+                $("#fileUploadsContainer").append(`
+                    <div class="form-group d-flex gap-2 my-2">
+                        <div class="position-relative w-100">
+                            <input type="file" id="inputAttachments" name="attachments[]" class="form-control custom--file-upload" required/>
+                            <label for="inputAttachments">@lang('Attachments')</label>
                         </div>
-                    </div>`
-                )
+                        <button class="btn--danger btn-sm remove-btn flex-shrink-0" type="button"><i class="las la-times"></i></button>
+                    </div>
+                `)
             });
-            $(document).on('click','.remove-btn',function(){
-                $(this).closest('.input-group').remove();
+            $(document).on('click', '.remove-btn', function() {
+                fileAdded--;
+                $(this).closest('.form-group').remove();
             });
         })(jQuery);
-
-    </script>
+</script>
 @endpush

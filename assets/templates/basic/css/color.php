@@ -1,66 +1,183 @@
 <?php
 header("Content-Type:text/css");
-$color1 = $_GET['color1']; // Change your Color Here
+$color = "#f0f"; // Change your Color Here
 
-
-function checkhexcolor($color1){
-    return preg_match('/^#[a-f0-9]{6}$/i', $color1);
+function checkhexcolor($color) {
+    return preg_match('/^#[a-f0-9]{6}$/i', $color);
 }
 
-if (isset($_GET['color1']) AND $_GET['color1'] != '') {
-    $color1 = "#" . $_GET['color1'];
+if (isset($_GET['color']) AND $_GET['color'] != '') {
+    $color = "#" . $_GET['color'];
 }
 
-if (!$color1 OR !checkhexcolor($color1)) {
-    $color1 = "#336699";
+if (!$color OR !checkhexcolor($color)) {
+    $color = "#336699";
 }
 
 ?>
 
-h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover, p a, p a:hover, .text--base, .footer__widget .footer__links li a::before, .header-contact-info li a:hover, .header-contact-info i, .sidebar-menu li a i, .upcoming__item .countdown, .view--all, .view--all:hover, .breadcrumb li a::after, .social__icons-account li a i:hover, .about--list li::before, .how-item .how-thumb, .contact-content ul li a:hover, .contact-thumb, .post__item .post__content .meta__date .meta__item i, .post__item .post__read, .widget__post .widget__post__content span, .cmn--outline--btn, .cookie__wrapper .title, .cookie__wrapper .btn--close {
-    color: <?= $color1 ?> !important;
+.header .main-menu li a:hover, .header .main-menu li a:focus, .hero__title, .stat-card__icon i, .header .nav-right a, .choose-card__icon,.header .main-menu li.menu_has_children:hover>a::before {
+color: <?php echo $color ?>;
 }
 
-.preloader .ball, .social-icons li a:hover, .section__header .section__category::before, .section__header .section__category::after, .footer__widget .social__icons li a:hover, .owl-dots .owl-dot.active, .sidebar__widget-header, .predict__header, .dashboard__item .dashboard__thumb, .cmn--table thead tr th, .social__icons-account li a i, .faq__item .faq__title .right__icon::before, .faq__item .faq__title .right__icon::after, .faq__item.open .faq__title, .referral__item-thumb, .post__item .post__thumb .category, .post__share li a i, .widget.widget__tags ul li a:hover, .widget.widget__tags ul li a.active, .post__tag li a:hover, .post__tag li a.active, .scrollToTop, .video__button, .video__button::before, .video__button::after, .cmn--outline--btn:hover, .cmn--btn, .pagination .page-item a.active, .pagination .page-item span.active, .pagination .page-item.active span, .pagination .page-item.active a, .pagination .page-item:hover span, .pagination .page-item:hover a {
-    background: <?= $color1 ?>;
+.header .main-menu li .sub-menu {
+    border-color: <?php echo $color ?>;
 }
 
-.nav--tabs .nav-item .nav-link.active, .predicts li a:focus, .predicts li a:hover, .post__share li a i {
-    background: <?= $color1 ?> !important;
+.header .main-menu li .sub-menu {
+    box-shadow: 0 3px 5px <?php echo $color ?>;
 }
 
-*::selection, .btn--base, .badge--base, .bg--base {
-    background-color: <?= $color1 ?> !important;
+.nice-select .option:hover, .nice-select .option.focus, .nice-select .option.selected.focus, .cmn-accordion .card-header .acc-btn, .single-select.active::after,.cookies-card__icon,.copied::after {
+background-color: <?php echo $color ?>;
 }
 
-.cmn--outline--btn:hover {
-    border-color: <?= $color1 ?>;
+.cmn-btn, .table.style--two thead {
+background-color: <?php echo $color ?>;
+}
+.cmn-btn:hover {
+background-color: <?php echo $color ?>;
+box-shadow: 0 0 10px 2px <?php echo $color ?>8c;
+}
+.cmn-btn-two {
+    border: 1px solid <?php echo $color ?>;
+}
+.cmn-btn-two:hover {
+box-shadow: 0px 0px 10px 2px <?php echo $color ?>bf, inset 0px 0px 10px 2px <?php echo $color ?>bf;
+}
+a:hover, .feature-card__icon, .text--base {
+color: <?php echo $color ?>;
+}
+.choose-card:hover {
+    border-color: <?php echo $color ?>;
+    box-shadow: 0 3px 10px <?php echo $color ?>88;
 }
 
-.cookie__wrapper .read-policy {
-    border: 1px solid <?= $color1 ?>;
+.testimonial-slider .slick-arrow,
+.work-card__icon  .step-number {
+background-color: <?php echo $color ?>;
 }
 
-.post__item .post__content .meta__date {
-    border-left: 5px solid <?= $color1 ?>;
+.testimonial-card__content,
+.testimonial-card__content::before {
+    border-color: <?php echo $color ?>;
 }
 
-.post__quote {
-    border-left: 3px solid <?= $color1 ?>;
+.post-card__content .date, .work-card__icon i {
+color: <?php echo $color ?>;
 }
 
-@media (max-width: 991px) {
-    .menu-area ul li a:hover {
-        color: <?= $color1 ?>;
-    }
+.footer-widget .subscribe-form .subscribe-btn {
+background-color: <?php echo $color ?>;
 }
 
-@media (min-width: 992px) {
-    .menu li .submenu li:hover > a {
-        background: <?= $color1 ?>;
-    }
+.info-single__content a:hover {
+color: <?php echo $color ?>;
 }
 
-.cookie__wrapper {
-    border-top: 1px solid <?= $color1 ?>50;
+.winner-item:hover {
+    border-color: <?php echo $color ?>;
+    box-shadow: 0 0 3px <?php echo $color ?>60;
+}
+
+.scroll-to-top, .post-card__thumb .post-card__date,.table thead tr th {
+    background-color: <?php echo $color ?>;
+}
+
+
+.base--color, .small-post__content .date {
+color: <?php echo $color ?>;
+}
+
+.page-list li a {
+color: <?php echo $color ?>;
+}
+
+.pagination .page-item .page-link::after, .modal-header {
+background-color: <?php echo $color ?>;
+}
+
+.input-group-text {
+    background-color: <?php echo $color ?>;
+    border-color: <?php echo $color ?>;
+}
+
+.contact-item i {
+color: <?php echo $color ?>;
+}
+
+.contact-item a:hover {
+color: <?php echo $color ?>;
+}
+
+.account-wrapper .input-group-text {
+background-color: <?php echo $color ?>;
+}
+
+.amount-field ~ .input-group-append .input-group-text {
+background-color: <?php echo $color ?>;
+border: 1px solid <?php echo $color ?>;
+}
+
+.base--bg {
+background-color: <?php echo $color ?>;
+}
+
+
+.custom--table .thead-dark th:last-child {
+border-right: 1px solid <?php echo $color ?>;
+}
+
+.custom--file-upload ~ label {
+background-color: <?php echo $color ?>;
+}
+
+*::-webkit-scrollbar-thumb {
+background: <?php echo $color ?> !important;
+}
+
+.page-item.active .page-link {
+    color: <?php echo $color ?> !important;
+}
+
+.profile-thumb .avatar-edit label {
+background-color: <?php echo $color ?> !important;
+color: #fff !important;
+}
+
+.statistics-section {
+    border-top: 1px solid <?php echo $color ?>;
+    border-bottom: 1px solid <?php echo $color ?>;
+}
+
+.shape-1,
+.shape-2,
+.shape-1::before,
+.shape-2::before,.login-area .input-group-text,.registration-area .input-group-text,.contact-item:hover {
+    background-color: <?php echo $color ?> !important;
+}
+
+.preloader__thumb::after{
+    border: 2px solid <?php echo $color ?>;
+}
+.form-control:focus{
+    box-shadow: 0px 0px 4px <?php echo $color ?> ;
+    border: 0.5px solid <?php echo $color ?> ;
+}
+
+.d-widget-balance .d-widget-icon {
+    background-color: <?php echo $color ?>;
+    box-shadow: 0 0 5px <?php echo $color ?>;
+}
+.verification-code span{
+    border: solid 1px  <?php echo $color ?> !important;
+    color:  <?php echo $color ?> !important;
+}
+
+.winner-item::after{
+    border: 2px solid <?php echo $color ?> !important;
+    box-shadow:  0 0 5px 2px <?php echo $color ?> 73!important;
+}
+.winner-item::before{
+    background-color: <?php echo $color ?>26 !important;
 }

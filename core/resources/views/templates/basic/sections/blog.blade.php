@@ -1,54 +1,33 @@
 @php
-    $blogContent = getContent('blog.content',true);
-    $blogElements = getContent('blog.element',false,3);
+$content = getContent('blog.content',true);
+$blogs = getContent('blog.element',false,3);
 @endphp
-
-<section class="blog-section pt-120 pb-120">
+<section class="pb-120">
     <div class="container">
-        <div class="section__header section__header__center">
-            <span class="section__category">@lang('Blog')</span>
-            <h3 class="section__title">{{__(@$blogContent->data_values->heading)}}</h3>
-            <p>
-                {{__(@$blogContent->data_values->details)}}
-            </p>
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="section-header text-center">
+                    <h2 class="section-title">{{ __(@$content->data_values->heading) }}</h2>
+                    <p class="mt-3">{{ __(@$content->data_values->subheading) }}</p>
+                </div>
+            </div>
         </div>
-        <div class="row gy-5">
-            @forelse($blogElements as $item)
-                <div class="col-lg-4 col-md-6 col-sm-10">
-                    <div class="post__item">
-                        <div class="post__thumb">
-                            <a href="{{route('blog.details',[$item->id,slug($item->data_values->title)])}}">
-                                <img src="{{ getImage('assets/images/frontend/blog/'.@$item->data_values->image,'600x400') }}" alt="blog">
-                            </a>
-                            <span class="category">
-                                {{__(@$item->data_values->tag)}}
-                            </span>
-                        </div>
-                        <div class="post__content">
-                            <h6 class="post__title">
-                                <a href="{{route('blog.details',[$item->id,slug($item->data_values->title)])}}">{{str_limit(__(@$item->data_values->title),55)}}</a>
-                            </h6>
-                            <div class="meta__date">
-                                <div class="meta__item">
-                                    <i class="las la-calendar"></i>
-                                    {{showDateTime(@$item->created_at,'d M, Y')}}
-                                </div>
-                            </div>
-                            <a href="{{route('blog.details',[$item->id,slug($item->data_values->title)])}}" class="post__read">@lang('Read More') <i class="las la-long-arrow-alt-right"></i></a>
-                        </div>
+        <div class="row mb-none-30 justify-content-center">
+            @foreach($blogs as $blog)
+            <div class="col-lg-4 col-md-6 mb-30 wow fadeInUp" data-wow-duration="0.5s" data-wow-delay="0.3s">
+                <div class="post-card">
+                    <div class="post-card__thumb">
+                        <img src="{{ getImage('assets/images/frontend/blog/thumb_'.@$blog->data_values->image,'350x250') }}" alt="image">
+                        <span class="post-card__date">{{ @$blog->created_at->format('d M, Y') }}</span>
+                    </div>
+                    <div class="post-card__content">
+                        <h3 class="post-card__title mt-2 mb-3"><a href="{{ route('blog.details', [slug(@$blog->data_values->title), $blog->id]) }}">{{ __(@$blog->data_values->title) }}</a>
+                        </h3>
+                        <a href="{{ route('blog.details', [slug(@$blog->data_values->title), $blog->id]) }}" class="cmn-btn btn-sm mt-3">@lang('Read More')</a>
                     </div>
                 </div>
-            @empty
-                <div class="col-lg-6 col-md-6 col-sm-10">
-                    <div class="post__item">
-                        <div class="post__content">
-                            <h6 class="post__title text-center">
-                                @lang('No data found')
-                            </h6>
-                        </div>
-                    </div>
-                </div>
-            @endforelse
+            </div>
+            @endforeach
         </div>
     </div>
 </section>

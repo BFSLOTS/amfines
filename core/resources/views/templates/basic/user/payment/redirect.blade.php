@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{{$general->sitename}}</title>
+    <title>{{$general->site_name}}</title>
 </head>
 
 <body>

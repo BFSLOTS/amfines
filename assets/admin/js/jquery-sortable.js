@@ -109,7 +109,7 @@
             // Ignore if element clicked is input, select or textarea
             onMousedown: function ($item, _super, event) {
                 if (!event.target.nodeName.match(/^(input|select|textarea)$/i)) {
-                    event.preventDefault()
+                    // event.preventDefault()
                     return true
                 }
             },
@@ -118,7 +118,7 @@
             // Template for the placeholder. Can be any valid jQuery input
             // e.g. a string, a DOM element.
             // The placeholder must have the class "placeholder"
-            placeholder: '<li class="placeholder"></li>',
+            placeholder: '<li class="placeholder">Drop here</li>',
             // If true, the position of the placeholder is calculated on every mousemove.
             // If false, it is only calculated when the mouse is above a container.
             pullPlaceholder: true,
@@ -401,7 +401,7 @@
             ) >= this.options.distance)
         },
         getPointer: function(e) {
-            var o = e.originalEvent || e.originalEvent.touches && e.originalEvent.touches[0]
+            var o = (e.originalEvent && e.originalEvent.touches) ? e.originalEvent.touches[0] : null
             return {
                 left: e.pageX || o.pageX,
                 top: e.pageY || o.pageY

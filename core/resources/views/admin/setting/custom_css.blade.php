@@ -4,8 +4,8 @@
       <div class="col-md-12 mb-30">
             <div class="card bl--5-primary">
                 <div class="card-body">
-                    <p class="font-weight-bold text--primary">@lang('From this page, you can add/update CSS for the user interface. Changing content on this page required programming knowledge.')</p>
-                    <p class="font-weight-bold text--warning">@lang('Please do not change/edit/add anything without having proper knowledge of it. Any mistake may lead to misbehaving of the system.')</p>
+                    <p class="text--primary">@lang('From this page, you can add/update CSS for the user interface. Changing content on this page required programming knowledge.')</p>
+                    <p class="text--warning">@lang('Please do not change/edit/add anything without having proper knowledge of it. The website may misbehave due to any mistake you have made.')</p>
                 </div>
             </div>
         </div>
@@ -18,11 +18,11 @@
                     @csrf
                     <div class="card-body">
                         <div class="form-group custom-css">
-                            <textarea class="form-control" rows="10" name="css" id="customCss">{{ $file_content }}</textarea>
+                            <textarea class="form-control customCss" rows="10" name="css">{{ $file_content }}</textarea>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn--primary btn-block">@lang('Submit')</button>
+                        <button type="submit" class="btn btn--primary w-100 h-45">@lang('Submit')</button>
                     </div>
                 </form>
             </div>
@@ -62,7 +62,7 @@
 @push('script')
 <script>
     "use strict";
-    var editor = CodeMirror.fromTextArea(document.getElementById("customCss"), {
+    var editor = CodeMirror.fromTextArea(document.getElementsByClassName("customCss")[0], {
       lineNumbers: true,
       mode: "text/css",
       theme: "monokai",

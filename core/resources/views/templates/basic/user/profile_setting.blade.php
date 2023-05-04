@@ -1,74 +1,67 @@
-@extends($activeTemplate.'layouts.frontend')
+@extends($activeTemplate.'layouts.master')
 @section('content')
-    @include($activeTemplate.'partials.breadcrumb')
-
-    <section class="dashboard-section bg--section pt-120">
-        <div class="container">
-            <div class="pb-120">
-                <div class="profile-wrapper bg--body">
-                    <div class="profile-user mb-lg-0">
-                        <div class="thumb">
-                            @if($user->image)
-                                <img src="{{ getImage(imagePath()['profile']['user']['path'].'/'. $user->image,imagePath()['profile']['user']['size']) }}" alt="user">
-                            @else
-                                <img src="{{ asset('assets/images/avatar.png') }}" alt="user">
-                            @endif
-                        </div>
-                        <div class="content">
-                            <h6 class="title">@lang('Name'): {{__($user->fullname)}}</h6>
-                            <span class="subtitle">@lang('Username'): {{$user->username}}</span>
-                        </div>
-                    </div>
-                    <div class="profile-form-area">
-                        <form class="profile-edit-form row mb--25" action="" method="POST" enctype="multipart/form-data">
+<div class="pt-120 pb-120">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-body">
+                        <form class="register" action="" method="post">
                             @csrf
-                            <div class="form--group col-md-6">
-                                <label class="cmn--label" for="first-name">@lang('First Name') <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control form--control" name="firstname" value="{{$user->firstname}}" minlength="3" required>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label class="form-label">@lang('First Name')</label>
+                                    <input type="text" class="form-control" name="firstname" value="{{$user->firstname}}" required>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label class="form-label">@lang('Last Name')</label>
+                                    <input type="text" class="form-control" name="lastname" value="{{$user->lastname}}" required>
+                                </div>
                             </div>
-                            <div class="form--group col-md-6">
-                                <label class="cmn--label" for="last-name">@lang('Last Name') <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control form--control"  name="lastname" value="{{$user->lastname}}" minlength="3" required>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label class="form-label">@lang('E-mail Address')</label>
+                                    <input class="form-control" value="{{$user->email}}" readonly>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label class="form-label">@lang('Mobile Number')</label>
+                                    <input class="form-control" value="{{$user->mobile}}" readonly>
+                                </div>
                             </div>
-                            <div class="form--group col-md-6">
-                                <label class="cmn--label" for="email">@lang('E-mail Address') <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control form--control" value="{{$user->email}}" readonly>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label class="form-label">@lang('Address')</label>
+                                    <input type="text" class="form-control" name="address" value="{{@$user->address->address}}">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label class="form-label">@lang('State')</label>
+                                    <input type="text" class="form-control" name="state" value="{{@$user->address->state}}">
+                                </div>
                             </div>
-                            <div class="form--group col-md-6">
-                                <label class="cmn--label" for="mobile">@lang('Mobile Number') <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control form--control" value="{{$user->mobile}}" readonly>
+
+                            <div class="row">
+                                <div class="form-group col-sm-4">
+                                    <label class="form-label">@lang('Zip Code')</label>
+                                    <input type="text" class="form-control" name="zip" value="{{@$user->address->zip}}">
+                                </div>
+
+                                <div class="form-group col-sm-4">
+                                    <label class="form-label">@lang('City')</label>
+                                    <input type="text" class="form-control" name="city" value="{{@$user->address->city}}">
+                                </div>
+
+                                <div class="form-group col-sm-4">
+                                    <label class="form-label">@lang('Country')</label>
+                                    <input class="form-control" value="{{@$user->address->country}}" disabled>
+                                </div>
+
                             </div>
-                            <div class="form--group col-md-6">
-                                <label class="cmn--label" for="address">@lang('Address') <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control form--control" name="address" value="{{@$user->address->address}}" required>
-                            </div>
-                            <div class="form--group col-md-6">
-                                <label class="cmn--label" for="state">@lang('State') <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control form--control" name="state" value="{{@$user->address->state}}" required>
-                            </div>
-                            <div class="form--group col-md-6">
-                                <label class="cmn--label" for="zip">@lang('Zip') <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control form--control" name="zip" value="{{@$user->address->zip}}" required>
-                            </div>
-                            <div class="form--group col-md-6">
-                                <label class="cmn--label" for="city">@lang('City') <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control form--control" name="city" value="{{@$user->address->city}}" required>
-                            </div>
-                            <div class="form--group col-md-6">
-                                <label class="cmn--label" for="country">@lang('Country') <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control form--control" value="{{@$user->address->country}}" disabled>
-                            </div>
-                            <div class="form--group col-md-6">
-                                <label class="cmn--label" for="profile-image">@lang('Profile Picture')</label>
-                                <input type="file" class="form-control form--control" name="image" accept="image/*">
-                            </div>
-                            <div class="form--group w-100 col-md-6 mb-0 text-end">
-                                <button type="submit" class="cmn--btn w-100 justify-content-center">@lang('Update Profile')</button>
-                            </div>
+                            <button type="submit" class="cmn-btn w-100">@lang('Submit')</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</div>
 @endsection

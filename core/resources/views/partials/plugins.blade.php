@@ -1,2 +1,2 @@
-@php echo  loadTawkto() @endphp
-@php echo  loadAnalytics() @endphp
+@php echo  loadExtension('tawk-chat') @endphp
+@php echo  loadExtension('google-analytics') @endphp

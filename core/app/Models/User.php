@@ -2,21 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Constants\Status;
+use App\Traits\Searchable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
-{
-    use Notifiable, HasApiTokens;
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-
-    protected $guarded = ['id'];
+class User extends Authenticatable {
+    use HasApiTokens, Searchable;
 
     /**
      * The attributes that should be hidden for arrays.
@@ -24,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'ver_code',
     ];
 
     /**
@@ -34,87 +27,84 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'address' => 'object',
-        'ver_code_send_at' => 'datetime'
+        'address'           => 'object',
+        'kyc_data'          => 'object',
+        'ver_code_send_at'  => 'datetime',
     ];
 
-    public function referrer()
-    {
-        return $this->belongsTo(User::class,'ref_by');
-    }
+    protected $data = [
+        'data' => 1,
+    ];
 
-    public function referrals(){
-        return $this->hasMany(User::class,'ref_by');
-    }
-
-    public function allReferrals(){
-        return $this->referrals()->with('referrer');
-    }
-
-    public function login_logs()
-    {
+    public function loginLogs() {
         return $this->hasMany(UserLogin::class);
     }
 
-    public function transactions()
-    {
-        return $this->hasMany(Transaction::class)->orderBy('id','desc');
+    public function transactions() {
+        return $this->hasMany(Transaction::class)->orderBy('id', 'desc');
     }
 
-    public function deposits()
-    {
-        return $this->hasMany(Deposit::class)->where('status','!=',0);
+    public function deposits() {
+        return $this->hasMany(Deposit::class)->where('status', '!=', Status::PAYMENT_INITIATE);
     }
 
-    public function withdrawals()
-    {
-        return $this->hasMany(Withdrawal::class)->where('status','!=',0);
+    public function withdrawals() {
+        return $this->hasMany(Withdrawal::class)->where('status', '!=', Status::PAYMENT_INITIATE);
     }
 
-    public function bets()
-    {
-        return $this->hasMany(Bet::class);
+    public function referrer() {
+        return $this->belongsTo(User::class, 'ref_by');
     }
 
-    public function commissions()
-    {
-        return $this->hasMany(CommissionLog::class,'to_id')->orderBy('id','desc');
+    public function referrals() {
+        return $this->hasMany(User::class, 'ref_by');
+    }
+
+    public function allReferrals() {
+        return $this->referrals()->with('referrer');
+    }
+
+    public function fullname(): Attribute {
+        return new Attribute(
+            get:fn() => $this->firstname . ' ' . $this->lastname,
+        );
     }
 
     // SCOPES
-
-    public function getFullnameAttribute()
-    {
-        return $this->firstname . ' ' . $this->lastname;
+    public function scopeActive() {
+        return $this->where('status', Status::USER_ACTIVE);
     }
 
-    public function scopeActive()
-    {
-        return $this->where('status', 1);
+    public function scopeBanned() {
+        return $this->where('status', Status::USER_BAN);
     }
 
-    public function scopeBanned()
-    {
-        return $this->where('status', 0);
+    public function scopeEmailUnverified() {
+        return $this->where('ev', Status::NO);
     }
 
-    public function scopeEmailUnverified()
-    {
-        return $this->where('ev', 0);
+    public function scopeMobileUnverified() {
+        return $this->where('sv', Status::NO);
     }
 
-    public function scopeSmsUnverified()
-    {
-        return $this->where('sv', 0);
-    }
-    public function scopeEmailVerified()
-    {
-        return $this->where('ev', 1);
+    public function scopeKycUnverified() {
+        return $this->where('kv', Status::KYC_UNVERIFIED);
     }
 
-    public function scopeSmsVerified()
-    {
-        return $this->where('sv', 1);
+    public function scopeKycPending() {
+        return $this->where('kv', Status::KYC_PENDING);
+    }
+
+    public function scopeEmailVerified() {
+        return $this->where('ev', Status::VERIFIED);
+    }
+
+    public function scopeMobileVerified() {
+        return $this->where('sv', Status::VERIFIED);
+    }
+
+    public function scopeWithBalance() {
+        return $this->where('balance', '>', 0);
     }
 
 }

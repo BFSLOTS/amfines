@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\GeneralSetting;
 use Closure;
 
 class AllowRegistration
@@ -16,8 +15,9 @@ class AllowRegistration
      */
     public function handle($request, Closure $next)
     {
-        if (GeneralSetting::first()->registration == 0) {
-            $notify[] = ['error', 'Registration is currently disabled.'];
+        $general = gs();
+        if ($general->registration == 0) {
+            $notify[] = ['error', 'Registration is currently disabled'];
             return back()->withNotify($notify);
         }
         return $next($request);

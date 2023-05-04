@@ -10,7 +10,7 @@
                         @if(@$data)
                             <input type="hidden" name="id" value="{{$data->id}}">
                         @endif
-                        <div class="form-row">
+                        <div class="row">
                             @php
                                 $imgCount = 0;
                             @endphp
@@ -23,7 +23,7 @@
                                             <div class="col-md-4">
                                                 <input type="hidden" name="has_image[]" value="1">
                                                 <div class="form-group">
-                                                    <label>{{ __(inputTitle($imgKey)) }}</label>
+                                                    <label>{{ __(keyToTitle($imgKey)) }}</label>
                                                     <div class="image-upload">
                                                         <div class="thumb">
                                                             <div class="avatar-preview">
@@ -33,8 +33,8 @@
                                                             </div>
                                                             <div class="avatar-edit">
                                                                 <input type="file" class="profilePicUpload" name="image_input[{{ $imgKey }}]" id="profilePicUpload{{ $loop->index }}" accept=".png, .jpg, .jpeg">
-                                                                <label for="profilePicUpload{{ $loop->index }}" class="bg--primary">{{ __(inputTitle($imgKey)) }}</label>
-                                                                <small class="mt-2 text-facebook">@lang('Supported files'): <b>@lang('jpeg'), @lang('jpg'), @lang('png')</b>.
+                                                                <label for="profilePicUpload{{ $loop->index }}" class="bg--primary">{{ __(keyToTitle($imgKey)) }}</label>
+                                                                <small class="mt-2  ">@lang('Supported files'): <b>@lang('jpeg'), @lang('jpg'), @lang('png')</b>.
                                                                     @if(@$section->element->images->$imgKey->size)
                                                                         | @lang('Will be resized to'):
                                                                         <b>{{@$section->element->images->$imgKey->size}}</b>
@@ -54,73 +54,65 @@
 
                                     @elseif($content == 'icon')
 
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label>{{ __(inputTitle($k)) }}</label>
-                                                <div class="input-group has_append">
-                                                    <input type="text" class="form-control icon" name="{{ $k }}" value="{{ @$data->data_values->$k }}" required>
-                                                    <div class="input-group-append">
-                                                        <button class="btn btn-outline-secondary iconPicker" data-icon="{{ @$data->data_values->$k ? substr(@$data->data_values->$k,10,-6) : 'las la-home' }}" role="iconpicker"></button>
-                                                    </div>
-                                                </div>
+                                        <div class="form-group">
+                                            <label>{{keyToTitle($k)}}</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control iconPicker icon" autocomplete="off" name="{{ $k }}" required>
+                                                <span class="input-group-text  input-group-addon" data-icon="las la-home" role="iconpicker"></span>
                                             </div>
                                         </div>
-
-                                @else
-                                    @if($content == 'textarea')
-
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label>{{ __(inputTitle($k)) }}</label>
-                                                <textarea rows="10" class="form-control" placeholder="{{ __(inputTitle($k)) }}" name="{{$k}}" required>{{ @$data->data_values->$k}}</textarea>
-                                            </div>
-                                        </div>
-
-                                    @elseif($content == 'textarea-nic')
-
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label>{{ __(inputTitle($k)) }}</label>
-                                                <textarea rows="10" class="form-control nicEdit" placeholder="{{ __(inputTitle($k)) }}" name="{{$k}}" >{{ @$data->data_values->$k}}</textarea>
-                                            </div>
-                                        </div>
-
-                                    @elseif($k == 'select')
-                                        @php
-                                            $selectName = $content->name;
-                                        @endphp
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-control-label  font-weight-bold">{{__(inputTitle(@$selectName))}}</label>
-                                                    <select class="form-control" name="{{ @$selectName }}">
-                                                        @foreach($content->options as $selectItemKey => $selectOption)
-                                                            <option value="{{ $selectItemKey }}" @if(@$data->data_values->$selectName == $selectItemKey) selected @endif>{{ __($selectOption) }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
 
                                     @else
+                                        @if($content == 'textarea')
 
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label>{{ __(inputTitle($k)) }}</label>
-                                                <input type="text" class="form-control" placeholder="{{ __(inputTitle($k)) }}" name="{{$k}}" value="{{ @$data->data_values->$k }}" required/>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>{{ __(keyToTitle($k)) }}</label>
+                                                    <textarea rows="10" class="form-control" name="{{$k}}" required>{{ @$data->data_values->$k}}</textarea>
+                                                </div>
                                             </div>
-                                        </div>
 
+                                        @elseif($content == 'textarea-nic')
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>{{ __(keyToTitle($k)) }}</label>
+                                                    <textarea rows="10" class="form-control nicEdit" name="{{$k}}" >{{ @$data->data_values->$k}}</textarea>
+                                                </div>
+                                            </div>
+
+                                        @elseif($k == 'select')
+                                            @php
+                                                $selectName = $content->name;
+                                            @endphp
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>{{__(keyToTitle(@$selectName))}}</label>
+                                                        <select class="form-control" name="{{ @$selectName }}" required>
+                                                            @foreach($content->options as $selectItemKey => $selectOption)
+                                                                <option value="{{ $selectItemKey }}" @if(@$data->data_values->$selectName == $selectItemKey) selected @endif>{{ __($selectOption) }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                        @else
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>{{ __(keyToTitle($k)) }}</label>
+                                                    <input type="text" class="form-control" name="{{$k}}" value="{{ @$data->data_values->$k }}" required/>
+                                                </div>
+                                            </div>
+
+                                        @endif
                                     @endif
-                                @endif
                             @endforeach
                             @stack('divend')
                         </div>
 
                         <div class="form-group">
-                            @if(@$data)
-                            <button type="submit"  class="btn btn--primary btn-block btn-lg">@lang('Update')</button>
-                            @else
-                            <button type="submit" class="btn btn--primary btn-block btn-lg">@lang('Create')</button>
-                            @endif
+                            <button type="submit"  class="btn btn--primary w-100 h-45">@lang('Submit')</button>
                         </div>
                     </form>
                 </div>
@@ -132,12 +124,12 @@
 
 
 
-@push('breadcrumb-plugins')
-    <a href="{{route('admin.frontend.sections',$key)}}" class="btn btn-sm btn--primary box--shadow1 text--small"><i class="fa fa-fw fa-backward"></i>@lang('Go Back')</a>
+@push('style-lib')
+<link href="{{ asset('assets/admin/css/fontawesome-iconpicker.min.css') }}" rel="stylesheet">
 @endpush
 
 @push('script-lib')
-    <script src="{{ asset('assets/admin/js/bootstrap-iconpicker.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/fontawesome-iconpicker.js') }}"></script>
 @endpush
 
 @push('script')
@@ -145,8 +137,8 @@
 
         (function ($) {
             "use strict";
-            $('.iconPicker').iconpicker().on('change', function (e) {
-                $(this).parent().siblings('.icon').val(`<i class="${e.icon}"></i>`);
+            $('.iconPicker').iconpicker().on('iconpickerSelected', function (e) {
+                $(this).closest('.form-group').find('.iconpicker-input').val(`<i class="${e.iconpickerValue}"></i>`);
             });
         })(jQuery);
     </script>

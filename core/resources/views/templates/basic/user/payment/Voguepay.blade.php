@@ -1,35 +1,36 @@
-@extends($activeTemplate.'layouts.frontend')
-
+@extends($activeTemplate.'layouts.master')
 @section('content')
-    @include($activeTemplate.'partials.breadcrumb')
-
-    <section class="dashboard-section bg--section pt-120">
-        <div class="container">
-            <div class="pb-120">
-                <div class="row justify-content-center">
-                    <div class="col-xl-8">
-                        <div class="deposit-preview bg--body">
-                            <div class="deposit-thumb">
-                                <img src="{{$deposit->gatewayCurrency()->methodImage()}}" alt="payment">
-                            </div>
-                            <div class="deposit-content justify-content-center">
-                                <div>
-                                    <h4 class="mt-4">@lang('Please Pay') {{showAmount($deposit->final_amo)}} {{__($deposit->method_currency)}}</h4>
-                                    <h4 class="my-3">@lang('To Get') {{showAmount($deposit->amount)}}  {{__($general->cur_text)}}</h4><br>
-                                </div>
-                                <a href="javascript:void(0)" class="cmn--btn" id="btn-confirm">@lang('Pay now')</a>
-                            </div>
-                        </div>
+<div class="pt-120 pb-120">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h5 class="card-title">@lang('Voguepay')</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush payment-list">
+                            <li class="list-group-item d-flex justify-content-between">
+                                @lang('You have to pay '):
+                                <strong>{{showAmount($deposit->final_amo)}} {{__($deposit->method_currency)}}</strong>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                @lang('You will get '):
+                                <strong>{{showAmount($deposit->amount)}} {{__($general->cur_text)}}</strong>
+                            </li>
+                        </ul>
+                        <button type="button" class="cmn-btn w-100 mt-3" id="btn-confirm">@lang('Pay Now')</button>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</div>
 @endsection
 @push('script')
-    <script src="//pay.voguepay.com/js/voguepay.js"></script>
-    <script>
-        "use strict";
+<script src="//pay.voguepay.com/js/voguepay.js"></script>
+<script>
+    "use strict";
         var closedFunction = function() {
         }
         var successFunction = function(transaction_id) {
@@ -38,7 +39,6 @@
         var failedFunction=function(transaction_id) {
             window.location.href = '{{ route(gatewayRedirectUrl()) }}' ;
         }
-
         function pay(item, price) {
             //Initiate voguepay inline payment
             Voguepay.init({
@@ -67,14 +67,11 @@
                 failed:failedFunction
             });
         }
-
         (function ($) {
-
             $('#btn-confirm').on('click', function (e) {
                 e.preventDefault();
                 pay('Buy', {{ $data->Buy }});
             });
-
         })(jQuery);
-    </script>
+</script>
 @endpush

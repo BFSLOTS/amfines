@@ -5,15 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CommissionLog extends Model
-{
+class CommissionLog extends Model {
     use HasFactory;
 
-    public function user(){
-        return $this->belongsTo(User::class,'to_id','id');
+    protected $guarded = ['id'];
+
+    public function userTo() {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function bywho(){
-        return $this->belongsTo(User::class,'from_id','id');
+    public function userFrom() {
+        return $this->belongsTo(User::class, 'who');
     }
 }

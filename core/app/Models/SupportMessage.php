@@ -6,11 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class SupportMessage extends Model
 {
-
-    protected $guarded = ['id'];
-
     public function ticket(){
-        return $this->belongsTo(SupportTicket::class, 'supportticket_id', 'id');
+        return $this->belongsTo(SupportTicket::class, 'support_ticket_id', 'id');
     }
 
     public function admin(){
@@ -19,6 +16,6 @@ class SupportMessage extends Model
 
     public function attachments()
     {
-        return $this->hasMany('App\Models\SupportAttachment','support_message_id','id');
+        return $this->hasMany(SupportAttachment::class,'support_message_id','id');
     }
 }

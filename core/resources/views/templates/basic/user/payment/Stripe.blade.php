@@ -1,87 +1,63 @@
-@extends($activeTemplate.'layouts.frontend')
-
+@extends($activeTemplate.'layouts.master')
 @section('content')
-    @include($activeTemplate.'partials.breadcrumb')
-
-    <section class="dashboard-section bg--section pt-120">
-        <div class="container">
-            <div class="pb-120">
-                <div class="row g-4 justify-content-center">
-                    <div class="col-lg-10">
-                        <div class="card custom--card h-100">
-                            <div class="card-header">
-                                <h5 class="card-title">@lang('Stripe Payment')</h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="two-factor-content">
-                                    <div class="card-wrapper mb-4"></div>
-
-                                    <form class="account-form row" role="form" id="payment-form" method="{{$data->method}}" action="{{$data->url}}">
-                                        @csrf
-                                        <input type="hidden" value="{{$data->track}}" name="track">
-
-                                        <div class="cmn--form--group form-group col-md-6">
-                                            <label for="username" class="cmn--label text--white w-100">@lang('Name on Card') <span class="text-danger">*</span></label>
-                                            <div class="input-group">
-                                                <span class="input-group-text">
-                                                    <i class="las la-user"></i>
-                                                </span>
-                                                <input type="text" class="form-control form--control custom-input" name="name" placeholder="@lang('Name on Card')" autocomplete="off" autofocus required>
-                                            </div>
-                                        </div>
-
-                                        <div class="cmn--form--group form-group col-md-6">
-                                            <label for="username" class="cmn--label text--white w-100">@lang('Card Number') <span class="text-danger">*</span></label>
-                                            <div class="input-group">
-                                                <span class="input-group-text">
-                                                    <i class="las la-sort-numeric-up"></i>
-                                                </span>
-                                                <input type="tel" class="form-control form--control custom-input" name="cardNumber" autocomplete="off" placeholder="@lang('Valid Card Number')" autofocus required>
-                                            </div>
-                                        </div>
-
-                                        <div class="cmn--form--group form-group col-md-6">
-                                            <label for="username" class="cmn--label text--white w-100">@lang('Expiration Date') <span class="text-danger">*</span></label>
-                                            <div class="input-group">
-                                                <span class="input-group-text">
-                                                    <i class="las la-calendar"></i>
-                                                </span>
-                                                <input type="tel" class="form-control form--control custom-input" name="cardExpiry" placeholder="@lang('MM / YYYY')" autocomplete="off" autofocus required>
-                                            </div>
-                                        </div>
-
-                                        <div class="cmn--form--group form-group col-md-6">
-                                            <label for="username" class="cmn--label text--white w-100">@lang('CVC Code') <span class="text-danger">*</span></label>
-                                            <div class="input-group">
-                                                <span class="input-group-text">
-                                                    <i class="las la-code"></i>
-                                                </span>
-                                                <input type="tel" class="form-control form--control custom-input" name="cardCVC" placeholder="@lang('CVC')" autocomplete="off" autofocus required>
-                                            </div>
-                                        </div>
-
-                                        <div class="text-center">
-                                            <button class="cmn--btn w-100  justify-content-center" type="submit"> @lang('Pay Now')
-                                            </button>
-                                        </div>
-                                    </form>
+<div class="pt-120 pb-120">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h5>@lang('Stripe Hosted')</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-wrapper mb-3"></div>
+                        <form role="form" id="payment-form" method="{{$data->method}}" action="{{$data->url}}">
+                            @csrf
+                            <input type="hidden" value="{{$data->track}}" name="track">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="form-label">@lang('Name on Card')</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control form--control" name="name" value="{{ old('name') }}" required autocomplete="off" autofocus />
+                                        <span class="input-group-text"><i class="fa fa-font"></i></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">@lang('Card Number')</label>
+                                    <div class="input-group">
+                                        <input type="tel" class="form-control form--control" name="cardNumber" autocomplete="off" value="{{ old('cardNumber') }}" required autofocus />
+                                        <span class="input-group-text"><i class="fa fa-credit-card"></i></span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+
+                            <div class="row mt-4">
+                                <div class="col-md-6">
+                                    <label class="form-label">@lang('Expiration Date')</label>
+                                    <input type="tel" class="form-control form--control" name="cardExpiry" value="{{ old('cardExpiry') }}" autocomplete="off" required />
+                                </div>
+                                <div class="col-md-6 ">
+                                    <label class="form-label">@lang('CVC Code')</label>
+                                    <input type="tel" class="form-control form--control" name="cardCVC" value="{{ old('cardCVC') }}" autocomplete="off" required />
+                                </div>
+                            </div>
+                            <br>
+                            <button class="cmn-btn w-100" type="submit"> @lang('Submit')</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</div>
 
 @endsection
 
 
 @push('script')
-    <script src="{{ asset('assets/global/js/card.js') }}"></script>
+<script src="{{ asset('assets/global/js/card.js') }}"></script>
 
-    <script>
-        (function ($) {
+<script>
+    (function ($) {
             "use strict";
             var card = new Card({
                 form: '#payment-form',
@@ -94,5 +70,5 @@
                 }
             });
         })(jQuery);
-    </script>
+</script>
 @endpush

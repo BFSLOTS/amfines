@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
+use App\Traits\Searchable;
 use Illuminate\Database\Eloquent\Model;
 
 class UserLogin extends Model
 {
-    protected $guarded = ['id'];
-
+    use Searchable;
 
     public function user()
     {

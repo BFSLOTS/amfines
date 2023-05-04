@@ -2,22 +2,21 @@
 
 namespace App\Models;
 
+use App\Traits\GlobalStatus;
 use Illuminate\Database\Eloquent\Model;
 
-class Extension extends Model
-{
+class Extension extends Model {
 
-    protected $guarded = ['id'];
+    use GlobalStatus;
 
     protected $casts = [
         'shortcode' => 'object',
     ];
 
-    public function scopeGenerateScript()
-    {
+    public function scopeGenerateScript() {
         $script = $this->script;
         foreach ($this->shortcode as $key => $item) {
-            $script = shortCodeReplacer('{{' . $key . '}}', $item->value, $script);
+            $script = str_replace('{{' . $key . '}}', $item->value, $script);
         }
         return $script;
     }

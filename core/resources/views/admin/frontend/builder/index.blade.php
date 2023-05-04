@@ -1,32 +1,30 @@
 @extends('admin.layouts.app')
 @section('panel')
-@if($pdata->is_default == 0)
+@if($pdata->is_default == Status::NO)
 <div class="row mb-4">
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('admin.frontend.manage.pages.update')}}" method="POST">
+                <form action="{{ route('admin.frontend.manage.pages.update') }}" method="POST">
                     @csrf
-                    <input type="hidden" class="form-control form-control-lg" name="id" value="{{ $pdata->id }}">
+                    <input name="id" type="hidden" value="{{ $pdata->id }}">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>@lang('Page Name')</label>
-                                <input type="text" class="form-control form-control-lg" placeholder="@lang('Page Name')" name="name" value="{{ $pdata->name }}"
-                                required>
+                                <input class="form-control" name="name" type="text" value="{{ $pdata->name }}" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>@lang('Page Slug') </label>
-                                <input type="text" class="form-control form-control-lg" placeholder="@lang('Page Slug')" name="slug" value="{{ $pdata->slug }}"
-                                required>
+                                <label>@lang('Page Slug')</label>
+                                <input class="form-control" name="slug" type="text" value="{{ $pdata->slug }}" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>&nbsp;</label>
-                                <button type="submit" class="btn btn--primary btn-block btn-lg">@lang('Update')</button>
+                                <button class="btn btn--primary w-100 h-45" type="submit">@lang('Submit')</button>
                             </div>
                         </div>
                     </div>
@@ -37,38 +35,33 @@
 </div>
 @endif
 
-
-
 <div class="row">
     <div class="col-md-7">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">{{__($pdata->name)}} @lang('Page')</h3>
-                <small class="text--primary">@lang('If you face any issue with removing sections, Please click the update button and then remove unnecessary sections and click the update button again.')</small>
+                <h3 class="card-title">{{ __($pdata->name) }} @lang('Page')</h3>
             </div>
 
             <div class="card-body">
-                <form action="{{route('admin.frontend.manage.section.update',$pdata->id)}}" method="post">
+                <form action="{{ route('admin.frontend.manage.section.update', $pdata->id) }}" method="post">
                     @csrf
                     <ol class="simple_with_drop vertical sec-item">
-                        @if($pdata->secs != null)
-                        @foreach(json_decode($pdata->secs) as $sec)
+                        @if ($pdata->secs != null)
+                        @foreach (json_decode($pdata->secs) as $sec)
                         <li class="highlight icon-move item">
-                            <i class=" fa fa-arrows-alt"></i>
-                            <span class="d-inline-block text-white mr-auto ml-2"> {{ __(@$sections[$sec]['name']) }}</span>
-                            <i class="ml-auto d-inline-block remove-icon fa fa-times"></i>
-                            <input type="hidden" name="secs[]" value="{{$sec}}">
+                            <i class="fa fa-arrows-alt"></i>
+                            <span class="d-inline-block me-auto ms-2 text-white"> {{ __(@$sections[$sec]['name']) }}</span>
+                            <i class="ms-auto d-inline-block remove-icon fa fa-times"></i>
+                            <input name="secs[]" type="hidden" value="{{ $sec }}">
                         </li>
                         @endforeach
                         @endif
                     </ol>
-                    <button type="submit" class="btn btn--primary btn-block btn-lg ">@lang('Update Now')</button>
+                    <button class="btn btn--primary w-100 h-45" type="submit">@lang('Update Now')</button>
                 </form>
 
             </div>
         </div>
-
-
 
     </div>
     <div class="col-md-5 mt-md-0 mt-3">
@@ -79,25 +72,22 @@
                 <small class="text--primary">@lang('Drag the section to the left side you want to show on the page.')</small>
             </div>
 
-
-
             <div class="card-body">
-
                 <ol class="simple_with_no_drop vertical">
-                    @foreach($sections as $k => $secs)
-                    @if(!@$secs['no_selection'])
+                    @foreach ($sections as $k => $secs)
+                    @if (!@$secs['no_selection'])
                     <li class="highlight icon-move clearfix">
-                            <i class=" fa fa-arrows-alt mt-2"></i>
-                            <span class="d-inline-block text-white mr-auto ml-2 mt-2"> {{__($secs['name'])}}</span>
-                            <i class="ml-auto d-inline-block remove-icon fa fa-times"></i>
-                            <input type="hidden" name="secs[]" value="{{$k}}">
-                            @if($secs['builder'])
-                                <div class="float-right d-inline-block manage-content">
-                                    <a href="{{ route('admin.frontend.sections',$k) }}" target="_blank" class="btn btn-outline-light text-center text-white cog-btn"  data-toggle="tooltip" data-original-title="@lang('Manage Content')">
-                                        <i class="fa fa-cog p-0 m-0"></i>
-                                    </a>
-                                </div>
-                            @endif
+                        <i class="fa fa-arrows-alt mt-2"></i>
+                        <span class="d-inline-block me-auto ms-2 text-white"> {{ __($secs['name']) }}</span>
+                        <i class="ms-auto d-inline-block remove-icon fa fa-times"></i>
+                        <input name="secs[]" type="hidden" value="{{ $k }}">
+                        @if ($secs['builder'])
+                        <div class="float-end d-inline-block manage-content">
+                            <a class="btn btn-outline-light cog-btn text-center text-white" href="{{ route('admin.frontend.sections', $k) }}" title="@lang('Manage Content')" target="_blank">
+                                <i class="fa fa-cog m-0 p-0"></i>
+                            </a>
+                        </div>
+                        @endif
                     </li>
                     @endif
                     @endforeach
@@ -110,49 +100,48 @@
 @stop
 
 @push('script-lib')
-<script src="{{asset('assets/admin/js/jquery-sortable.js')}}"></script>
+<script src="{{ asset('assets/admin/js/jquery-sortable.js') }}"></script>
 @endpush
 
 @push('script')
 <script>
     (function($) {
-        "use strict";
-        $("ol.simple_with_drop").sortable({
-            group: 'no-drop',
-            handle: '.icon-move',
-            onDragStart: function ($item, container, _super) {
-                    // Duplicate items of the no drop area
-                    if(!container.options.drop){
+            "use strict";
+            $("ol.simple_with_drop").sortable({
+                group: 'no-drop',
+                handle: '.icon-move',
+                onDragStart: function($item, container, _super) {
+                    if (!container.options.drop) {
                         $item.clone().insertAfter($item);
                     }
                     _super($item, container);
                 }
             });
-        $("ol.simple_with_no_drop").sortable({
-            group: 'no-drop',
-            drop: false
-        });
-        $("ol.simple_with_no_drag").sortable({
-            group: 'no-drop',
-            drag: false
-        });
-        $(".remove-icon").on('click',function(){
-            $(this).parent('.highlight').remove();
-        });
+            $("ol.simple_with_no_drop").sortable({
+                group: 'no-drop',
+                drop: false
+            });
+            $("ol.simple_with_no_drag").sortable({
+                group: 'no-drop',
+                drag: false
+            });
 
-    })(jQuery);
+            $(document).on('click', ".remove-icon", function() {
+                $(this).parent('.highlight').remove();
+            });
+
+        })(jQuery);
 </script>
 @endpush
 
-
 @push('breadcrumb-plugins')
-<a href="{{route('admin.frontend.manage.pages')}}"  class="btn btn-sm btn--primary box--shadow1 text--small"><i class="la la-backward"></i> @lang('Go Back') </a>
+    <x-back route="{{ route('admin.frontend.manage.pages') }}" />
 @endpush
 
 @push('style')
 <style>
     .span4 {
-        width: 300px; 
+        width: 300px;
     }
 
     ol li.highlight {
@@ -164,6 +153,7 @@
         margin: 0 0 9px 0;
         min-height: 10px;
     }
+
     li {
         line-height: 18px;
     }
@@ -171,6 +161,7 @@
     .icon-move {
         background-position: -168px -72px;
     }
+
     ol i.icon-move {
         cursor: pointer;
     }
@@ -183,6 +174,7 @@
         margin-inline-start: 0px;
         margin-inline-end: 0px;
     }
+
     .vertical li i {
         color: #000000;
         padding-right: 15px;
@@ -193,7 +185,7 @@
         padding-right: 15px;
     }
 
-    .sec-item li i.fa-times{
+    .sec-item li i.fa-times {
         color: #ea5455;
         padding-right: 15px;
     }
@@ -208,7 +200,6 @@
         font-weight: 600;
     }
 
-
     ol.sec-item li {
         margin: 10px 0;
         padding: 10px;
@@ -221,48 +212,55 @@
         justify-content: space-between;
         align-items: center;
     }
+
     .ol.sec-item li.d-none {
-        display: none !important;}
-        [class*="span"] {
-            float: left;
-            margin-left: 20px;
-        }
+        display: none !important;
+    }
 
-        .row {
-            margin-left: -20px;
-            *zoom: 1;
-        }
-        .row {
-            position: relative;
-        }
-        .dragged {
-            position: absolute;
-            top: 0;
-            opacity: 0.5;
-            z-index: 2000;
-            background: #333333;
-            color: #999999;
-        }
+    [class*="span"] {
+        float: left;
+        margin-left: 20px;
+    }
 
-        ol.vertical li i.remove-icon{
-            display: none !important;
-        }
+    .row {
+        *zoom: 1;
+    }
 
-        ol.sec-item li i.remove-icon{
-            display: block !important;
-        }
-        ol.sec-item li .manage-content{
-            display: none !important;
-        }
-        ol.vertical li span {
-            font-size: 18px;
-        }
-        .cog-btn i {
-            color: #fff!important
-        }
-        .cog-btn:hover i {
-            color: #000!important
-        }
+    .row {
+        position: relative;
+    }
 
+    .dragged {
+        position: absolute;
+        top: 0;
+        opacity: 0.5;
+        z-index: 2000;
+        background: #333333;
+        color: #999999;
+    }
+
+    ol.vertical li i.remove-icon {
+        display: none !important;
+    }
+
+    ol.sec-item li i.remove-icon {
+        display: block !important;
+    }
+
+    ol.sec-item li .manage-content {
+        display: none !important;
+    }
+
+    ol.vertical li span {
+        font-size: 18px;
+    }
+
+    .cog-btn i {
+        color: #fff !important
+    }
+
+    .cog-btn:hover i {
+        color: #000 !important
+    }
 </style>
 @endpush

@@ -1,41 +1,40 @@
 <link rel="stylesheet" href="{{ asset('assets/global/css/iziToast.min.css') }}">
 <script src="{{ asset('assets/global/js/iziToast.min.js') }}"></script>
 @if(session()->has('notify'))
-    @foreach(session('notify') as $msg)
-        <script>
-            "use strict";
+@foreach(session('notify') as $msg)
+<script>
+    "use strict";
             iziToast.{{ $msg[0] }}({message:"{{ __($msg[1]) }}", position: "topRight"});
-        </script>
-    @endforeach
+</script>
+@endforeach
 @endif
 
-@if ($errors->any())
-    @php
-        $collection = collect($errors->all());
-        $errors = $collection->unique();
-    @endphp
+@if (isset($errors) && $errors->any())
+@php
+$collection = collect($errors->all());
+$errors = $collection->unique();
+@endphp
 
-    <script>
-        "use strict";
+<script>
+    "use strict";
         @foreach ($errors as $error)
         iziToast.error({
             message: '{{ __($error) }}',
             position: "topRight"
         });
         @endforeach
-    </script>
+</script>
 
 @endif
-
 <script>
     "use strict";
     function notify(status, message) {
-        if(typeof message == 'string'){
+        if (typeof message == 'string') {
             iziToast[status]({
                 message: message,
                 position: "topRight"
             });
-        }else{
+        } else {
             $.each(message, function(i, val) {
                 iziToast[status]({
                     message: val,

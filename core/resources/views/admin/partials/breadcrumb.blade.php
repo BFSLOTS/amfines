@@ -1,10 +1,6 @@
-
-
-<div class="row align-items-center mb-30 justify-content-between">
-    <div class="col-lg-4 col-sm-6">
-        <h6 class="page-title">{{ __($pageTitle) }}</h6>
-    </div>
-    <div class="col-lg-8 col-sm-6 text-sm-right mt-sm-0 mt-3 right-part">
+<div class="d-flex mb-30 flex-wrap gap-3 justify-content-between align-items-center">
+    <h6 class="page-title">{{ __($pageTitle) }}</h6>
+    <div class="d-flex flex-wrap justify-content-end gap-2 align-items-center breadcrumb-plugins">
         @stack('breadcrumb-plugins')
     </div>
 </div>

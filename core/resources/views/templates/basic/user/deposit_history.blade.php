@@ -1,174 +1,156 @@
-@extends($activeTemplate.'layouts.frontend')
+@extends($activeTemplate . 'layouts.master')
 @section('content')
-    @include($activeTemplate.'partials.breadcrumb')
-    <section class="dashboard-section bg--section pt-120">
+    <div class="pt-120 pb-120">
         <div class="container">
-            <div class="pb-120">
-                <div class="text-end mb-4">
-                    <a href="{{route('user.deposit')}}" class="cmn--btn btn--sm">@lang('Deposit Now')</a>
-                </div>
-                <div class="table-responsive">
-                    <table class="table cmn--table">
-                        <thead>
-                            <tr>
-                                <th>@lang('Transaction ID')</th>
-                                <th>@lang('Gateway')</th>
-                                <th>@lang('Amount')</th>
-                                <th>@lang('Status')</th>
-                                <th>@lang('Time')</th>
-                                <th> @lang('More')</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if(count($logs) >0)
-                                @foreach($logs as $k=>$data)
-                                    <tr>
-                                        <td data-label="#@lang('Transaction ID')">{{$data->trx}}</td>
-                                        <td data-label="@lang('Gateway')">{{ __(@$data->gateway->name)  }}</td>
-                                        <td data-label="@lang('Amount')">
-                                            <strong>{{showAmount($data->amount)}} {{__($general->cur_text)}}</strong>
-                                        </td>
-                                        <td>
-                                            @if($data->status == 1)
-                                                <span class="badge badge--success">@lang('Complete')</span>
-                                            @elseif($data->status == 2)
-                                                <span class="badge badge--warning">@lang('Pending')</span>
-                                            @elseif($data->status == 3)
-                                                <span class="badge badge--danger">@lang('Cancel')</span>
-                                            @endif
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <form action="">
+                        <div class="d-flex justify-content-end ms-auto table--form mb- mb-3 flex-wrap">
+                            <div class="input-group">
+                                <input class="form-control" name="search" type="text" value="{{ request()->search }}" placeholder="@lang('Search by transactions')">
+                                <button class="input-group-text text-white">
+                                <i class="las la-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="card">
+                        <div class="card-body p-0">
+                            <div class="table--responsive">
+                                <table class="style--two table">
+                                    <thead>
+                                        <tr>
+                                            <th>@lang('Gateway | Transaction')</th>
+                                            <th>@lang('Initiated')</th>
+                                            <th>@lang('Amount')</th>
+                                            <th>@lang('Conversion')</th>
+                                            <th>@lang('Status')</th>
+                                            <th>@lang('Details')</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse($deposits as $deposit)
+                                            <tr>
+                                                <td>
+                                                    <div class="text-end text-lg-start">
+                                                        <span class="fw-bold"> <span class="text--base">{{ __($deposit->gateway?->name) }}</span> </span>
+                                                        <br>
+                                                        <small> {{ $deposit->trx }} </small>
+                                                    </div>
+                                                </td>
 
-                                            @if($data->admin_feedback != null)
-                                                <a href="javascript:void(0)" class="badge badge--info detailBtn" data-admin_feedback="{{$data->admin_feedback}}"><i class="fa fa-info"></i></a>
-                                            @endif
+                                                <td>
+                                                    <div>
+                                                        {{ showDateTime($deposit->created_at) }}<br>{{ diffForHumans($deposit->created_at) }}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        {{ __($general->cur_sym) }}{{ showAmount($deposit->amount) }} + <span class="text--danger" title="@lang('charge')">{{ showAmount($deposit->charge) }} </span>
+                                                        <br>
+                                                        <strong title="@lang('Amount with charge')">
+                                                            {{ showAmount($deposit->amount + $deposit->charge) }} {{ __($general->cur_text) }}
+                                                        </strong>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        1 {{ __($general->cur_text) }} = {{ showAmount($deposit->rate) }} {{ __($deposit->method_currency) }}
+                                                        <br>
+                                                        <strong>{{ showAmount($deposit->final_amo) }} {{ __($deposit->method_currency) }}</strong>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    @php echo $deposit->statusBadge @endphp
+                                                </td>
+                                                @php
+                                                    $details = $deposit->detail != null ? json_encode($deposit->detail) : null;
+                                                @endphp
 
-                                        </td>
-                                        <td data-label="@lang('Time')">
-                                            <i class="fa fa-calendar text--base"></i> {{showDateTime($data->created_at)}}
-                                        </td>
-
-                                        @php
-                                            $details = ($data->detail != null) ? json_encode($data->detail) : null;
-                                        @endphp
-
-                                        <td data-label="@lang('More')">
-                                            <a href="javascript:void(0)" class="badge badge--success approveBtn"
-                                                data-info="{{ $details }}"
-                                                data-id="{{ $data->id }}"
-                                                data-amount="{{ showAmount($data->amount)}} {{ __($general->cur_text) }}"
-                                                data-charge="{{ showAmount($data->charge)}} {{ __($general->cur_text) }}"
-                                                data-after_charge="{{ showAmount($data->amount + $data->charge)}} {{ __($general->cur_text) }}"
-                                                data-rate="{{ showAmount($data->rate)}} {{ __($data->method_currency) }}"
-                                                data-payable="{{ showAmount($data->final_amo)}} {{ __($data->method_currency) }}">
-                                                <i class="fa fa-desktop"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @else
-                                <tr>
-                                    <td colspan="100%" class="text-enter">{{ __($emptyMessage) }}</td>
-                                </tr>
-                            @endif
-                        </tbody>
-                    </table>
-                </div>
-                <ul class="pagination justify-content-end">
-                    {{$logs->links()}}
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    {{-- APPROVE MODAL --}}
-    <div id="approveModal" class="modal fade cmn--modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title m-0">@lang('Details')</h5>
-                    <span data-bs-dismiss="modal"><i class="las la-times"></i></span>
-                </div>
-                <div class="modal-body">
-                    <ul class="list-group">
-                        <li class="list-group-item bg--dark">@lang('Amount') : <span class="withdraw-amount "></span></li>
-                        <li class="list-group-item bg--dark">@lang('Charge') : <span class="withdraw-charge "></span></li>
-                        <li class="list-group-item bg--dark">@lang('After Charge') : <span class="withdraw-after_charge"></span></li>
-                        <li class="list-group-item bg--dark">@lang('Conversion Rate') : <span class="withdraw-rate"></span></li>
-                        <li class="list-group-item bg--dark">@lang('Payable Amount') : <span class="withdraw-payable"></span></li>
-                    </ul>
-                    <ul class="list-group withdraw-detail mt-1">
-                    </ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn--danger" data-bs-dismiss="modal">@lang('Close')</button>
+                                                <td>
+                                                    <a class="btn base--bg btn-sm @if ($deposit->method_code >= 1000) detailBtn @else disabled @endif" href="javascript:void(0)" @if ($deposit->method_code >= 1000) data-info="{{ $details }}" @endif @if ($deposit->status == Status::PAYMENT_REJECT) data-admin_feedback="{{ $deposit->admin_feedback }}" @endif>
+                                                        <i class="fa fa-desktop"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="100%">{{ __($emptyMessage) }}</td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        @if ($deposits->hasPages())
+                            <div class="card-footer">
+                                {{ paginateLinks($deposits) }}
+                            </div>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    {{-- Detail MODAL --}}
-    <div id="detailModal" class="modal fade cmn--modal" tabindex="-1" role="dialog">
+    <div class="modal fade" id="detailModal" role="dialog" tabindex="-1">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
+            <div class="modal-content section--bg">
                 <div class="modal-header">
-                    <h6 class="modal-title m-0">@lang('Details')</h6>
-                    <span data-bs-dismiss="modal"><i class="las la-times"></i></span>
+                    <h5 class="modal-title">@lang('Details')</h5>
+                    <span class="close" data-bs-dismiss="modal" type="button" aria-label="Close">
+                        <i class="las la-times"></i>
+                    </span>
                 </div>
                 <div class="modal-body">
-                    <div class="withdraw-detail"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn--danger" data-bs-dismiss="modal">@lang('Close')</button>
+                    <ul class="list-group list-group-flush payment-list userData mb-2">
+                    </ul>
+                    <div class="feedback"></div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
 
-
 @push('script')
     <script>
-        (function ($) {
+        (function($) {
             "use strict";
-            $('.approveBtn').on('click', function() {
-                var modal = $('#approveModal');
-                modal.find('.withdraw-amount').text($(this).data('amount'));
-                modal.find('.withdraw-charge').text($(this).data('charge'));
-                modal.find('.withdraw-after_charge').text($(this).data('after_charge'));
-                modal.find('.withdraw-rate').text($(this).data('rate'));
-                modal.find('.withdraw-payable').text($(this).data('payable'));
-                var list = [];
-                var details =  Object.entries($(this).data('info'));
-
-                var ImgPath = "{{asset(imagePath()['verify']['deposit']['path'])}}/";
-                var singleInfo = '';
-                for (var i = 0; i < details.length; i++) {
-                    if (details[i][1].type == 'file') {
-                        singleInfo += `<li class="list-group-item">
-                                            <span class="font-weight-bold "> ${details[i][0].replaceAll('_', " ")} </span> : <img src="${ImgPath}/${details[i][1].field_name}" alt="@lang('Image')" class="w-100">
-                                        </li>`;
-                    }else{
-                        singleInfo += `<li class="list-group-item">
-                                            <span class="font-weight-bold "> ${details[i][0].replaceAll('_', " ")} </span> : <span class="font-weight-bold ml-3">${details[i][1].field_name}</span>
-                                        </li>`;
-                    }
-                }
-
-                if (singleInfo)
-                {
-                    modal.find('.withdraw-detail').html(`<br><strong class="my-3">@lang('Payment Information')</strong>  ${singleInfo}`);
-                }else{
-                    modal.find('.withdraw-detail').html(`${singleInfo}`);
-                }
-                modal.modal('show');
-            });
-
             $('.detailBtn').on('click', function() {
                 var modal = $('#detailModal');
-                var feedback = $(this).data('admin_feedback');
-                modal.find('.withdraw-detail').html(`<p> ${feedback} </p>`);
+
+                var userData = $(this).data('info');
+                var html = '';
+                if (userData) {
+                    userData.forEach(element => {
+                        if (element.type != 'file') {
+                            html += `
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>${element.name}</span>
+                                <span">${element.value}</span>
+                            </li>`;
+                        }
+                    });
+                }
+
+                modal.find('.userData').html(html);
+
+                if ($(this).data('admin_feedback') != undefined) {
+                    var adminFeedback = `
+                        <div class="my-3">
+                            <strong>@lang('Admin Feedback')</strong>
+                            <p>${$(this).data('admin_feedback')}</p>
+                        </div>
+                    `;
+                } else {
+                    var adminFeedback = '';
+                }
+
+                modal.find('.feedback').html(adminFeedback);
+
+
                 modal.modal('show');
             });
         })(jQuery);
     </script>
 @endpush
-
