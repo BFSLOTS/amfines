@@ -15,7 +15,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `xaxino_update`
@@ -29,16 +29,16 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `admins` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `email` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `username` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
+  `name` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `username` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `image` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8_general_ci NOT NULL,
-  `remember_token` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `admins`
@@ -56,12 +56,12 @@ INSERT INTO `admins` (`id`, `name`, `email`, `username`, `email_verified_at`, `i
 CREATE TABLE `admin_notifications` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL DEFAULT 0,
-  `title` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `is_read` tinyint(1) NOT NULL DEFAULT 0,
-  `click_url` text COLLATE utf8_general_ci DEFAULT NULL,
+  `click_url` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -71,12 +71,12 @@ CREATE TABLE `admin_notifications` (
 
 CREATE TABLE `admin_password_resets` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `email` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `token` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
+  `email` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `token` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -88,14 +88,14 @@ CREATE TABLE `commission_logs` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` int(10) NOT NULL DEFAULT 0,
   `who` int(10) NOT NULL DEFAULT 0,
-  `level` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
+  `level` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `amount` decimal(28,8) NOT NULL DEFAULT 0.00000000,
   `main_amo` decimal(28,8) NOT NULL DEFAULT 0.00000000,
-  `title` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `trx` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
+  `title` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `trx` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -108,21 +108,21 @@ CREATE TABLE `deposits` (
   `user_id` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `method_code` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `amount` decimal(28,8) NOT NULL DEFAULT 0.00000000,
-  `method_currency` varchar(40) COLLATE utf8_general_ci NOT NULL,
+  `method_currency` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
   `charge` decimal(28,8) NOT NULL DEFAULT 0.00000000,
   `rate` decimal(28,8) NOT NULL DEFAULT 0.00000000,
   `final_amo` decimal(28,8) NOT NULL DEFAULT 0.00000000,
-  `detail` text COLLATE utf8_general_ci DEFAULT NULL,
-  `btc_amo` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `btc_wallet` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `trx` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
+  `detail` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `btc_amo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `btc_wallet` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `trx` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `try` int(10) NOT NULL DEFAULT 0,
   `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '1=>success, 2=>pending, 3=>cancel',
   `from_api` tinyint(1) NOT NULL DEFAULT 0,
-  `admin_feedback` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `admin_feedback` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -132,17 +132,17 @@ CREATE TABLE `deposits` (
 
 CREATE TABLE `extensions` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `act` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `name` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `description` text COLLATE utf8_general_ci DEFAULT NULL,
-  `image` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `script` text COLLATE utf8_general_ci DEFAULT NULL,
-  `shortcode` text COLLATE utf8_general_ci DEFAULT NULL COMMENT 'object',
-  `support` text COLLATE utf8_general_ci DEFAULT NULL COMMENT 'help section',
+  `act` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `script` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `shortcode` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'object',
+  `support` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'help section',
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1=>enable, 2=>disable',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `extensions`
@@ -163,18 +163,18 @@ INSERT INTO `extensions` (`id`, `act`, `name`, `description`, `image`, `script`,
 
 CREATE TABLE `forms` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `act` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `form_data` text COLLATE utf8_general_ci DEFAULT NULL,
+  `act` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `form_data` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `forms`
 --
 
 INSERT INTO `forms` (`id`, `act`, `form_data`, `created_at`, `updated_at`) VALUES
-(1, 'kyc', '{\"full_name\":{\"name\":\"Full Name\",\"label\":\"ชื่อ นามสกุล\",\"is_required\":\"required\",\"extensions\":null,\"options\":[],\"type\":\"text\"},\"nid_number\":{\"name\":\"NID Number\",\"label\":\"nid_number\",\"is_required\":\"required\",\"extensions\":null,\"options\":[],\"type\":\"text\"},\"gender\":{\"name\":\"Gender\",\"label\":\"เพศ\",\"is_required\":\"required\",\"extensions\":null,\"options\":[\"ชาย\",\"หญิง\",\"อื่นๆ\"],\"type\":\"select\"},\"you_hobby\":{\"name\":\"You Hobby\",\"label\":\"วันเดือนปีเกิด\",\"is_required\":\"required\",\"extensions\":null,\"options\":[\"Programming\",\"Gardening\",\"Traveling\",\"Others\"],\"type\":\"checkbox\"},\"nid_photo\":{\"name\":\"NID Photo\",\"label\":\"nid_photo\",\"is_required\":\"required\",\"extensions\":\"jpg,png\",\"options\":[],\"type\":\"file\"}}', '2022-03-17 02:56:14', '2022-04-11 03:23:40');
+(1, 'kyc', '{\"full_name\":{\"name\":\"Full Name\",\"label\":\"full_name\",\"is_required\":\"required\",\"extensions\":null,\"options\":[],\"type\":\"text\"},\"nid_number\":{\"name\":\"NID Number\",\"label\":\"nid_number\",\"is_required\":\"required\",\"extensions\":null,\"options\":[],\"type\":\"text\"},\"gender\":{\"name\":\"Gender\",\"label\":\"gender\",\"is_required\":\"required\",\"extensions\":null,\"options\":[\"Male\",\"Female\",\"Others\"],\"type\":\"select\"},\"you_hobby\":{\"name\":\"You Hobby\",\"label\":\"you_hobby\",\"is_required\":\"required\",\"extensions\":null,\"options\":[\"Programming\",\"Gardening\",\"Traveling\",\"Others\"],\"type\":\"checkbox\"},\"nid_photo\":{\"name\":\"NID Photo\",\"label\":\"nid_photo\",\"is_required\":\"required\",\"extensions\":\"jpg,png\",\"options\":[],\"type\":\"file\"}}', '2022-03-17 02:56:14', '2022-04-11 03:23:40');
 
 -- --------------------------------------------------------
 
@@ -184,31 +184,31 @@ INSERT INTO `forms` (`id`, `act`, `form_data`, `created_at`, `updated_at`) VALUE
 
 CREATE TABLE `frontends` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `data_keys` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `data_values` longtext COLLATE utf8_general_ci DEFAULT NULL,
+  `data_keys` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `data_values` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `views` int(10) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `frontends`
 --
 
 INSERT INTO `frontends` (`id`, `data_keys`, `data_values`, `views`, `created_at`, `updated_at`) VALUES
-(1, 'seo.data', '{\"seo_image\":\"1\",\"keywords\":[\"slotpg\",\"สล็อต\",\"คาสิโน\"],\"description\":\"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit\",\"social_title\":\"Xaxino - Ultimate Casino Platform\",\"social_description\":\"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit ff\",\"image\":\"634fe7ee36d6d1666181102.png\"}', 0, '2020-07-04 23:42:52', '2022-10-19 06:05:11'),
-(41, 'cookie.data', '{\"short_desc\":\"เราอาจใช้คุกกี้หรือเทคโนโลยีการติดตามอื่น ๆ เมื่อคุณเยี่ยมชมเว็บไซต์ของเรา รวมถึงรูปแบบสื่ออื่น ๆ เว็บไซต์มือถือ หรือแอปพลิเคชันมือถือที่เกี่ยวข้องหรือเชื่อมต่อเพื่อช่วยปรับแต่งไซต์และปรับปรุงประสบการณ์ของคุณ\",\"description\":\"<div class=\\\"mb-5\\\" style=\\\"font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif;\\\"><font color=\\\"#ffffff\\\">What information do we collect?<\\/font><\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right: 0px; margin-left: 0px; font-size: 18px !important;\\\"><font color=\\\"#ffffff\\\">เรารวบรวมข้อมูลจากคุณเมื่อคุณลงทะเบียนบนไซต์ของเรา ส่งคำขอ ซื้อบริการใด ๆ ตอบสนองต่อภาพรวม หรือสรุปโครงสร้าง เมื่อขอความช่วยเหลือหรือลงทะเบียนบนไซต์ของเรา ตามความเหมาะสม คุณอาจได้รับการติดต่อให้ป้อน: ชื่อ ที่อยู่อีเมล หรือหมายเลขโทรศัพท์ของคุณ อย่างไรก็ตาม คุณสามารถเยี่ยมชมเว็บไซต์ของเราได้โดยไม่เปิดเผยตัวตน<\\/font><\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif;\\\"><font color=\\\"#ffffff\\\">เราจะปกป้องข้อมูลของคุณอย่างไร?<\\/font><\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right: 0px; margin-left: 0px; font-size: 18px !important;\\\"><font color=\\\"#ffffff\\\">ข้อมูลเครดิตที่ละเอียดอ่อน\\/เครดิตทั้งหมดที่มีให้จะถูกส่งผ่าน Stripe<br>หลังจากการแลกเปลี่ยน ข้อมูลส่วนตัวของคุณ (บัตรเครดิต หมายเลขประกันสังคม ข้อมูลการเงิน และอื่นๆ) จะไม่ถูกนำไปฝากไว้กับพนักงานของเรา<\\/font><\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif;\\\"><font color=\\\"#ffffff\\\">Do we disclose any information to outside parties?<\\/font><\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right: 0px; margin-left: 0px; font-size: 18px !important;\\\"><font color=\\\"#ffffff\\\">เราไม่ขาย แลกเปลี่ยน หรือย้ายไปยังที่ชุมนุมภายนอก ไม่ว่าในกรณีใด ๆ โดยและโดยข้อมูลที่จดจำได้ สิ่งนี้ไม่รวมถึงบุคคลภายนอกที่ไว้วางใจซึ่งช่วยเราในการทำงานเว็บไซต์ของเรา เป็นผู้นำธุรกิจของเรา หรือปรับเปลี่ยนคุณ เนื่องจากการรวบรวมเหล่านั้นยินยอมที่จะรักษาข้อมูลนี้เป็นส่วนตัว นอกจากนี้ เราอาจส่งข้อมูลของคุณเมื่อเรายอมรับว่าการระบายออกนั้นเหมาะสมที่จะปฏิบัติตามกฎหมาย ใช้กลยุทธ์เว็บไซต์ของเรา หรือรับรองสิทธิ์ ทรัพย์สิน หรือความเป็นอยู่ที่ดีของเราเองหรือของผู้อื่น<\\/font><\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif;\\\"><font color=\\\"#ffffff\\\">การปฏิบัติตามกฎหมายคุ้มครองความเป็นส่วนตัวออนไลน์ของเด็ก<\\/font><\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right: 0px; margin-left: 0px; font-size: 18px !important;\\\"><font color=\\\"#ffffff\\\">เราปฏิบัติตามข้อกำหนดเบื้องต้นของ COPPA (กฎหมายคุ้มครองความเป็นส่วนตัวทางออนไลน์ของเด็ก) เราไม่รวบรวมข้อมูลใด ๆ จากผู้ที่มีอายุต่ำกว่า 13 ปี ไซต์ สิ่งของ และการบริหารของเราได้รับการประสานงานอย่างสมบูรณ์กับบุคคลที่มีอายุตั้งแต่ 13 ปีขึ้นไปในทุกกรณี<\\/font><\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif;\\\"><font color=\\\"#ffffff\\\">การเปลี่ยนแปลงนโยบายความเป็นส่วนตัวของเรา<\\/font><\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right: 0px; margin-left: 0px; font-size: 18px !important;\\\"><font color=\\\"#ffffff\\\">หากเราตัดสินใจที่จะเปลี่ยนแปลงนโยบายความเป็นส่วนตัว เราจะโพสต์การเปลี่ยนแปลงเหล่านั้นในหน้านี้<\\/font><\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif;\\\"><font color=\\\"#ffffff\\\">How long we retain your information?<\\/font><\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right: 0px; margin-left: 0px; font-size: 18px !important;\\\"><font color=\\\"#ffffff\\\">ณ จุดที่คุณลงทะเบียนสำหรับเว็บไซต์ของเรา เราจะหมุนเวียนและเก็บข้อมูลของคุณที่เรามีเกี่ยวกับคุณตราบเท่าที่คุณไม่ลบบันทึกหรือถอนตัว (ภายใต้กฎหมายและแนวทางปฏิบัติ)<\\/font><\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif;\\\"><font color=\\\"#ffffff\\\">What we don\\u2019t do with your data<\\/font><\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right: 0px; margin-left: 0px; font-size: 18px !important;\\\"><font color=\\\"#ffffff\\\">เราไม่และจะไม่แบ่งปัน เปิดเผย ขาย หรือให้ข้อมูลของคุณแก่องค์กรต่างๆ เพื่อส่งเสริมรายการหรือการบริหารงานของพวกเขาไม่ว่าในกรณีใดก็ตาม<\\/font><\\/p><\\/div>\",\"status\":1}', 0, '2020-07-04 23:42:52', '2022-08-25 03:51:03'),
-(42, 'policy_pages.element', '{\"title\":\"Privacy Policy\",\"details\":\"<p style=\\\"margin-right:0px;margin-bottom:15px;margin-left:0px;padding:0px;text-align:justify;font-family:\'Open Sans\', Arial, sans-serif;font-size:14px;\\\"><font color=\\\"#ffffff\\\">ipsum dolor sit amet, consectetur adipiscing elit. อยู่ใน orci eros Phasellus pulvinar ใน lectus vestibulum blandit Aeneean lacus mauris, egestas vitae augue pulvinar, accumsan egestas sapien. Ut viverra dolor non augue ullamcorper, blandit viverra risus ผู้ประมูล. Curabitur blandit lectus ใน arcu iaculis pretium Proin venenatis neque a magna gravida ไม่ใช่ fringilla diam suscipit Maecenas dictum turpis magna, nec aliquam felis sollicitudin ut. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque ถิ่นที่อยู่อาศัย morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque gravida nibh vel ultricies ผู้ประมูล Vivamus non convallis purus. Nunc sollicitudin diam leo, a suscipit lorem tempor nec. Phasellus Tellus ligula, gravida rhoncus mattis vitae, lacinia sit amet nulla. Sed vestibulum cursus diam, non ornare tortor egestas dictum.<\\/font><\\/p><p style=\\\"margin-right:0px;margin-bottom:15px;margin-left:0px;padding:0px;text-align:justify;font-family:\'Open Sans\', Arial, sans-serif;font-size:14px;\\\"><font color=\\\"#ffffff\\\">Phasellus tincidunt pharetra lobortis. Fusce cursus dictum sapien. Aliquam enim lorem, rhoncus vitae sagittis vel, faucibus eterat. Sed ที่ posuere neque, hendrerit pulvinar augue. Nulla iaculis orci vel nulla aliquam, lobortis sodales purus porta. ดูอิด ลาซิเนีย nisl. Fusce eu neque in nibh luctus posuere sit amet non odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget risus eget urna tincidunt dapibus. ใน maximus scelerisque nulla, ut luctus nunc luctus eu. ในที่อยู่อาศัยที่ราบสูง Fusce sapien massa, placerat sed lectus in, faucibus พรีเที่ยม Quisque et cursus purus, vitae efficitur libero. Aeneean iaculis sollicitudin placerat.<\\/font><\\/p><p style=\\\"margin-right:0px;margin-bottom:15px;margin-left:0px;padding:0px;text-align:justify;font-family:\'Open Sans\', Arial, sans-serif;font-size:14px;\\\"><font color=\\\"#ffffff\\\">Vivamus aliquam mi neque, vel efficitur justo rutrum id. Aliquam erat volutpat. Nunc mattis a diam vel auctor. Pellentesque vestibulum massa arcu, sit amet imperdiet lacus aliquet eu. Praesent aliquam mauris sit amet libero congue, sit amet aliquam sapien laoreet. Sed dignissim augue non lectus scelerisque, a posuere elit ultricies. Morbi nec fermentum arcu. Duis pretium convallis tempus. Suspendisse mollis, nisi ac porttitor gravida, nibh nisl pharetra sapien, nec tincidunt turpis dolor in velit. Integer dolor dui, varius vel auctor a, viverra sit amet lacus.<\\/font><\\/p><p style=\\\"margin-right:0px;margin-bottom:15px;margin-left:0px;padding:0px;text-align:justify;font-family:\'Open Sans\', Arial, sans-serif;font-size:14px;\\\"><font color=\\\"#ffffff\\\">Fusce blandit, lorem at mollis pretium, est leo scelerisque dolor, feugiat pharetra sapien elit bibendum libero. Morbi faucibus eleifend cursus. Vestibulum fermentum eros pulvinar elit ultrices maximus. Aliquam erat volutpat. Suspendisse quis diam vitae metus maximus viverra. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec fringilla neque turpis, sed tincidunt risus lacinia quis. Fusce eget nisl venenatis, fermentum turpis eget, ultricies mi. Donec ut justo non nunc accumsan aliquet eget eu nisi. Ut varius purus ut eleifend hendrerit. Phasellus sed consectetur ex, eu ultrices est.<\\/font><\\/p><p style=\\\"margin-right:0px;margin-bottom:15px;margin-left:0px;padding:0px;text-align:justify;font-family:\'Open Sans\', Arial, sans-serif;font-size:14px;\\\"><font color=\\\"#ffffff\\\">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque cursus turpis quis ante efficitur tempus. In eu dignissim enim. Phasellus sit amet accumsan justo. Suspendisse tincidunt, massa at cursus consectetur, sapien turpis lacinia nulla, a luctus ex arcu sed lorem. Nullam vel ante ultrices, accumsan turpis vel, convallis sem. Ut ac finibus odio, ut placerat elit. Nunc aliquam, nunc ac placerat sodales, eros velit dictum est, quis pellentesque ipsum sapien vitae erat. Nunc euismod id nisl ac interdum. Pellentesque sodales ex at tellus facilisis, quis gravida mi fermentum. Cras et bibendum lectus. Nullam laoreet, risus eget consequat tristique, purus risus malesuada risus, ac eleifend erat turpis nec eros. Pellentesque vitae ex purus. Vestibulum eget orci leo. Donec ut orci ac dolor finibus fringilla.<\\/font><\\/p>\"}', 0, '2021-06-09 08:50:42', '2022-10-13 06:29:58'),
+(1, 'seo.data', '{\"seo_image\":\"1\",\"keywords\":[\"live game\",\"xaxino game\",\"casino platform\"],\"description\":\"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit\",\"social_title\":\"Xaxino - Ultimate Casino Platform\",\"social_description\":\"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit ff\",\"image\":\"634fe7ee36d6d1666181102.png\"}', 0, '2020-07-04 23:42:52', '2022-10-19 06:05:11'),
+(41, 'cookie.data', '{\"short_desc\":\"We may use cookies or any other tracking technologies when you visit our website, including any other media form, mobile website, or mobile application related or connected to help customize the Site and improve your experience.\",\"description\":\"<div class=\\\"mb-5\\\" style=\\\"font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif;\\\"><font color=\\\"#ffffff\\\">What information do we collect?<\\/font><\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right: 0px; margin-left: 0px; font-size: 18px !important;\\\"><font color=\\\"#ffffff\\\">We gather data from you when you register on our site, submit a request, buy any services, react to an overview, or round out a structure. At the point when requesting any assistance or enrolling on our site, as suitable, you might be approached to enter your: name, email address, or telephone number. You may, nonetheless, visit our site anonymously.<\\/font><\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif;\\\"><font color=\\\"#ffffff\\\">How do we protect your information?<\\/font><\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right: 0px; margin-left: 0px; font-size: 18px !important;\\\"><font color=\\\"#ffffff\\\">All provided delicate\\/credit data is sent through Stripe.<br>After an exchange, your private data (credit cards, social security numbers, financials, and so on) won\'t be put away on our workers.<\\/font><\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif;\\\"><font color=\\\"#ffffff\\\">Do we disclose any information to outside parties?<\\/font><\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right: 0px; margin-left: 0px; font-size: 18px !important;\\\"><font color=\\\"#ffffff\\\">We don\'t sell, exchange, or in any case move to outside gatherings by and by recognizable data. This does exclude confided in outsiders who help us in working our site, leading our business, or adjusting you, since those gatherings consent to keep this data private. We may likewise deliver your data when we accept discharge is suitable to follow the law, implement our site strategies, or ensure our own or others\' rights, property, or wellbeing.<\\/font><\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif;\\\"><font color=\\\"#ffffff\\\">Children\'s Online Privacy Protection Act Compliance<\\/font><\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right: 0px; margin-left: 0px; font-size: 18px !important;\\\"><font color=\\\"#ffffff\\\">We are consistent with the prerequisites of COPPA (Children\'s Online Privacy Protection Act), we don\'t gather any data from anybody under 13 years old. Our site, items, and administrations are completely coordinated to individuals who are in any event 13 years of age or more established.<\\/font><\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif;\\\"><font color=\\\"#ffffff\\\">Changes to our Privacy Policy<\\/font><\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right: 0px; margin-left: 0px; font-size: 18px !important;\\\"><font color=\\\"#ffffff\\\">If we decide to change our privacy policy, we will post those changes on this page.<\\/font><\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif;\\\"><font color=\\\"#ffffff\\\">How long we retain your information?<\\/font><\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right: 0px; margin-left: 0px; font-size: 18px !important;\\\"><font color=\\\"#ffffff\\\">At the point when you register for our site, we cycle and keep your information we have about you however long you don\'t erase the record or withdraw yourself (subject to laws and guidelines).<\\/font><\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif;\\\"><font color=\\\"#ffffff\\\">What we don\\u2019t do with your data<\\/font><\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right: 0px; margin-left: 0px; font-size: 18px !important;\\\"><font color=\\\"#ffffff\\\">We don\'t and will never share, unveil, sell, or in any case give your information to different organizations for the promoting of their items or administrations.<\\/font><\\/p><\\/div>\",\"status\":1}', 0, '2020-07-04 23:42:52', '2022-08-25 03:51:03'),
+(42, 'policy_pages.element', '{\"title\":\"Privacy Policy\",\"details\":\"<p style=\\\"margin-right:0px;margin-bottom:15px;margin-left:0px;padding:0px;text-align:justify;font-family:\'Open Sans\', Arial, sans-serif;font-size:14px;\\\"><font color=\\\"#ffffff\\\">ipsum dolor sit amet, consectetur adipiscing elit. Sed in orci eros. Phasellus pulvinar in lectus vestibulum blandit. Aenean lacus mauris, egestas vitae augue pulvinar, accumsan egestas sapien. Ut viverra dolor non augue ullamcorper, blandit viverra risus auctor. Curabitur blandit lectus in arcu iaculis pretium. Proin venenatis neque a magna gravida, non fringilla diam suscipit. Maecenas dictum turpis magna, nec aliquam felis sollicitudin ut. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque gravida nibh vel ultricies auctor. Vivamus non convallis purus. Nunc sollicitudin diam leo, a suscipit lorem tempor nec. Phasellus tellus ligula, gravida rhoncus mattis vitae, lacinia sit amet nulla. Sed vestibulum cursus diam, non ornare tortor egestas dictum.<\\/font><\\/p><p style=\\\"margin-right:0px;margin-bottom:15px;margin-left:0px;padding:0px;text-align:justify;font-family:\'Open Sans\', Arial, sans-serif;font-size:14px;\\\"><font color=\\\"#ffffff\\\">Phasellus tincidunt pharetra lobortis. Fusce cursus dictum sapien. Aliquam enim lorem, rhoncus vitae sagittis vel, faucibus et erat. Sed at posuere neque, hendrerit pulvinar augue. Nulla iaculis orci vel nulla aliquam, lobortis sodales purus porta. Duis id lacinia nisl. Fusce eu neque in nibh luctus posuere sit amet non odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget risus eget urna tincidunt dapibus. In maximus scelerisque nulla, ut luctus nunc luctus eu. In hac habitasse platea dictumst. Fusce sapien massa, placerat sed lectus in, faucibus pretium erat. Quisque et cursus purus, vitae efficitur libero. Aenean iaculis sollicitudin placerat.<\\/font><\\/p><p style=\\\"margin-right:0px;margin-bottom:15px;margin-left:0px;padding:0px;text-align:justify;font-family:\'Open Sans\', Arial, sans-serif;font-size:14px;\\\"><font color=\\\"#ffffff\\\">Vivamus aliquam mi neque, vel efficitur justo rutrum id. Aliquam erat volutpat. Nunc mattis a diam vel auctor. Pellentesque vestibulum massa arcu, sit amet imperdiet lacus aliquet eu. Praesent aliquam mauris sit amet libero congue, sit amet aliquam sapien laoreet. Sed dignissim augue non lectus scelerisque, a posuere elit ultricies. Morbi nec fermentum arcu. Duis pretium convallis tempus. Suspendisse mollis, nisi ac porttitor gravida, nibh nisl pharetra sapien, nec tincidunt turpis dolor in velit. Integer dolor dui, varius vel auctor a, viverra sit amet lacus.<\\/font><\\/p><p style=\\\"margin-right:0px;margin-bottom:15px;margin-left:0px;padding:0px;text-align:justify;font-family:\'Open Sans\', Arial, sans-serif;font-size:14px;\\\"><font color=\\\"#ffffff\\\">Fusce blandit, lorem at mollis pretium, est leo scelerisque dolor, feugiat pharetra sapien elit bibendum libero. Morbi faucibus eleifend cursus. Vestibulum fermentum eros pulvinar elit ultrices maximus. Aliquam erat volutpat. Suspendisse quis diam vitae metus maximus viverra. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec fringilla neque turpis, sed tincidunt risus lacinia quis. Fusce eget nisl venenatis, fermentum turpis eget, ultricies mi. Donec ut justo non nunc accumsan aliquet eget eu nisi. Ut varius purus ut eleifend hendrerit. Phasellus sed consectetur ex, eu ultrices est.<\\/font><\\/p><p style=\\\"margin-right:0px;margin-bottom:15px;margin-left:0px;padding:0px;text-align:justify;font-family:\'Open Sans\', Arial, sans-serif;font-size:14px;\\\"><font color=\\\"#ffffff\\\">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque cursus turpis quis ante efficitur tempus. In eu dignissim enim. Phasellus sit amet accumsan justo. Suspendisse tincidunt, massa at cursus consectetur, sapien turpis lacinia nulla, a luctus ex arcu sed lorem. Nullam vel ante ultrices, accumsan turpis vel, convallis sem. Ut ac finibus odio, ut placerat elit. Nunc aliquam, nunc ac placerat sodales, eros velit dictum est, quis pellentesque ipsum sapien vitae erat. Nunc euismod id nisl ac interdum. Pellentesque sodales ex at tellus facilisis, quis gravida mi fermentum. Cras et bibendum lectus. Nullam laoreet, risus eget consequat tristique, purus risus malesuada risus, ac eleifend erat turpis nec eros. Pellentesque vitae ex purus. Vestibulum eget orci leo. Donec ut orci ac dolor finibus fringilla.<\\/font><\\/p>\"}', 0, '2021-06-09 08:50:42', '2022-10-13 06:29:58'),
 (43, 'policy_pages.element', '{\"title\":\"Terms of Service\",\"details\":\"<p style=\\\"margin-right:0px;margin-bottom:15px;margin-left:0px;padding:0px;text-align:justify;font-family:\'Open Sans\', Arial, sans-serif;font-size:14px;\\\"><font color=\\\"#ffffff\\\">ipsum dolor sit amet, consectetur adipiscing elit. Sed in orci eros. Phasellus pulvinar in lectus vestibulum blandit. Aenean lacus mauris, egestas vitae augue pulvinar, accumsan egestas sapien. Ut viverra dolor non augue ullamcorper, blandit viverra risus auctor. Curabitur blandit lectus in arcu iaculis pretium. Proin venenatis neque a magna gravida, non fringilla diam suscipit. Maecenas dictum turpis magna, nec aliquam felis sollicitudin ut. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque gravida nibh vel ultricies auctor. Vivamus non convallis purus. Nunc sollicitudin diam leo, a suscipit lorem tempor nec. Phasellus tellus ligula, gravida rhoncus mattis vitae, lacinia sit amet nulla. Sed vestibulum cursus diam, non ornare tortor egestas dictum.<\\/font><\\/p><p style=\\\"margin-right:0px;margin-bottom:15px;margin-left:0px;padding:0px;text-align:justify;font-family:\'Open Sans\', Arial, sans-serif;font-size:14px;\\\"><font color=\\\"#ffffff\\\">Phasellus tincidunt pharetra lobortis. Fusce cursus dictum sapien. Aliquam enim lorem, rhoncus vitae sagittis vel, faucibus et erat. Sed at posuere neque, hendrerit pulvinar augue. Nulla iaculis orci vel nulla aliquam, lobortis sodales purus porta. Duis id lacinia nisl. Fusce eu neque in nibh luctus posuere sit amet non odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget risus eget urna tincidunt dapibus. In maximus scelerisque nulla, ut luctus nunc luctus eu. In hac habitasse platea dictumst. Fusce sapien massa, placerat sed lectus in, faucibus pretium erat. Quisque et cursus purus, vitae efficitur libero. Aenean iaculis sollicitudin placerat.<\\/font><\\/p><p style=\\\"margin-right:0px;margin-bottom:15px;margin-left:0px;padding:0px;text-align:justify;font-family:\'Open Sans\', Arial, sans-serif;font-size:14px;\\\"><font color=\\\"#ffffff\\\">Vivamus aliquam mi neque, vel efficitur justo rutrum id. Aliquam erat volutpat. Nunc mattis a diam vel auctor. Pellentesque vestibulum massa arcu, sit amet imperdiet lacus aliquet eu. Praesent aliquam mauris sit amet libero congue, sit amet aliquam sapien laoreet. Sed dignissim augue non lectus scelerisque, a posuere elit ultricies. Morbi nec fermentum arcu. Duis pretium convallis tempus. Suspendisse mollis, nisi ac porttitor gravida, nibh nisl pharetra sapien, nec tincidunt turpis dolor in velit. Integer dolor dui, varius vel auctor a, viverra sit amet lacus.<\\/font><\\/p><p style=\\\"margin-right:0px;margin-bottom:15px;margin-left:0px;padding:0px;text-align:justify;font-family:\'Open Sans\', Arial, sans-serif;font-size:14px;\\\"><font color=\\\"#ffffff\\\">Fusce blandit, lorem at mollis pretium, est leo scelerisque dolor, feugiat pharetra sapien elit bibendum libero. Morbi faucibus eleifend cursus. Vestibulum fermentum eros pulvinar elit ultrices maximus. Aliquam erat volutpat. Suspendisse quis diam vitae metus maximus viverra. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec fringilla neque turpis, sed tincidunt risus lacinia quis. Fusce eget nisl venenatis, fermentum turpis eget, ultricies mi. Donec ut justo non nunc accumsan aliquet eget eu nisi. Ut varius purus ut eleifend hendrerit. Phasellus sed consectetur ex, eu ultrices est.<\\/font><\\/p><p style=\\\"margin-right:0px;margin-bottom:15px;margin-left:0px;padding:0px;text-align:justify;font-family:\'Open Sans\', Arial, sans-serif;font-size:14px;\\\"><font color=\\\"#ffffff\\\">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque cursus turpis quis ante efficitur tempus. In eu dignissim enim. Phasellus sit amet accumsan justo. Suspendisse tincidunt, massa at cursus consectetur, sapien turpis lacinia nulla, a luctus ex arcu sed lorem. Nullam vel ante ultrices, accumsan turpis vel, convallis sem. Ut ac finibus odio, ut placerat elit. Nunc aliquam, nunc ac placerat sodales, eros velit dictum est, quis pellentesque ipsum sapien vitae erat. Nunc euismod id nisl ac interdum. Pellentesque sodales ex at tellus facilisis, quis gravida mi fermentum. Cras et bibendum lectus. Nullam laoreet, risus eget consequat tristique, purus risus malesuada risus, ac eleifend erat turpis nec eros. Pellentesque vitae ex purus. Vestibulum eget orci leo. Donec ut orci ac dolor finibus fringilla.<\\/font><\\/p>\"}', 0, '2021-06-09 08:51:18', '2022-10-13 06:30:37'),
-(44, 'maintenance.data', '{\"heading\":\"เว็บไซต์ ปิดปรับปรุง ชั่วคราว ขออภัยในความไม่สะดวก\",\"description\":\"<div class=\\\"mb-5\\\" style=\\\"color: rgb(111, 111, 111); font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight: 600; line-height: 1.3; font-size: 24px; text-align: center; font-family: Exo, sans-serif;\\\"><font color=\\\"#FFFFFF\\\">We\'ll Be Right Back!<\\/font><\\/h3><h3 class=\\\"mb-3\\\" style=\\\"text-align: center; font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif; color: rgb(54, 54, 54);\\\"><p class=\\\"font-18\\\" style=\\\"margin-right: 0px; margin-left: 0px; font-family: Nunito, sans-serif; font-size: 18px !important;\\\"><font color=\\\"#FFFFFF\\\">หากเราแก้ไขปรับปรุงเสร็จเรียบร้อย จะแจ้งให้สมาชิกทราบทันที<\\/font><\\/p><\\/h3><\\/div>\"}', 0, '2020-07-04 23:42:52', '2022-08-31 05:52:05'),
-(45, 'banner.content', '{\"has_image\":\"1\",\"heading\":\"VIP55 SLOTS ONLINE\",\"subheading\":\"ระบบ API แท้ จาก คาสิโนจริงในประเทศ แคนนาดา การันตรีด้วยสมาชิกนับล้าน ลิขสิทธิ์แท้ ในไทย ที่นี่ที่เดียว มีไบเซอร์ ถูกต้อง ระบบคาสิโนออนไลน์ \",\"button_one\":\"สมัครสมาชิก\",\"button_url_one\":\"user\\/register\",\"button_two\":\"เข้าสู่ระบบ\",\"button_url_two\":\"user\\/login\",\"image\":\"6305cef1a72c51661325041.jpg\"}', 0, '2022-08-24 05:40:41', '2022-10-19 06:11:22'),
-(46, 'about.content', '{\"has_image\":\"1\",\"heading\":\"เกี่ยวกับเรา\",\"description\":\"Maecenas sagittis turpis vel orci malesuada\",\"button\":\"เรียนรู้เพิ่มเติม\",\"button_url\":\"about-us\",\"image\":\"6305cf36ddbcf1661325110.png\"}', 0, '2022-08-24 05:41:50', '2022-09-25 07:47:59'),
+(44, 'maintenance.data', '{\"heading\":\"THE SITE IS UNDER MAINTENANCE\",\"description\":\"<div class=\\\"mb-5\\\" style=\\\"color: rgb(111, 111, 111); font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight: 600; line-height: 1.3; font-size: 24px; text-align: center; font-family: Exo, sans-serif;\\\"><font color=\\\"#FFFFFF\\\">We\'ll Be Right Back!<\\/font><\\/h3><h3 class=\\\"mb-3\\\" style=\\\"text-align: center; font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif; color: rgb(54, 54, 54);\\\"><p class=\\\"font-18\\\" style=\\\"margin-right: 0px; margin-left: 0px; font-family: Nunito, sans-serif; font-size: 18px !important;\\\"><font color=\\\"#FFFFFF\\\">Sorry, we are down for maintenance but we will be back as soon as possible.<\\/font><\\/p><\\/h3><\\/div>\"}', 0, '2020-07-04 23:42:52', '2022-08-31 05:52:05'),
+(45, 'banner.content', '{\"has_image\":\"1\",\"heading\":\"Play online games and win a lot of bonuses\",\"subheading\":\"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos error quo cum illum, alias similique, suscipit nihil tempore.\",\"button_one\":\"Sign Up\",\"button_url_one\":\"user\\/register\",\"button_two\":\"Sign In\",\"button_url_two\":\"user\\/login\",\"image\":\"6305cef1a72c51661325041.jpg\"}', 0, '2022-08-24 05:40:41', '2022-10-19 06:11:22'),
+(46, 'about.content', '{\"has_image\":\"1\",\"heading\":\"About\",\"description\":\"Maecenas sagittis turpis vel orci malesuada\",\"button\":\"Learn More\",\"button_url\":\"about-us\",\"image\":\"6305cf36ddbcf1661325110.png\"}', 0, '2022-08-24 05:41:50', '2022-09-25 07:47:59'),
 (47, 'about.element', '{\"icon\":\"<i class=\\\"las la-cogs\\\"><\\/i>\",\"title\":\"Best Platform\"}', 0, '2022-08-24 05:42:12', '2022-08-24 05:42:12'),
 (48, 'about.element', '{\"icon\":\"<i class=\\\"las la-credit-card\\\"><\\/i>\",\"title\":\"Quick Deposit\"}', 0, '2022-08-24 05:42:24', '2022-08-24 05:42:24'),
 (49, 'about.element', '{\"icon\":\"<i class=\\\"las la-cloud-download-alt\\\"><\\/i>\",\"title\":\"Quick Withdraw\"}', 0, '2022-08-24 05:42:34', '2022-08-24 05:42:34'),
 (50, 'about.element', '{\"icon\":\"<i class=\\\"las la-hands-helping\\\"><\\/i>\",\"title\":\"24\\/7 Support\"}', 0, '2022-08-24 05:42:44', '2022-08-24 05:42:44'),
-(52, 'game.content', '{\"heading\":\"เกมที่ยอดเยี่ยมของเรา\",\"subheading\":\"เกมส์ยอดนิยม แตกง่าย ฟรีเกมส์มาบ่อย เราแนะนำ\"}', 0, '2022-08-24 05:43:37', '2022-08-24 05:43:37'),
-(53, 'trx_win.content', '{\"heading\":\"ธุรกรรมล่าสุดและผู้ชนะ\",\"subheading\":\"Dolor sit amet consectetur adipisicing elit. Ipsa, harum quidem fuga ipsam dolores odio architecto, non neque minima atque nisi temporibus ullam\"}', 0, '2022-08-24 05:44:18', '2022-08-24 05:44:18'),
+(52, 'game.content', '{\"heading\":\"Our Awesome Games\",\"subheading\":\"Dolor sit amet consectetur adipisicing elit. Ipsa, harum quidem fuga ipsam dolores odio architecto, non neque minima atque nisi temporibus ullam\"}', 0, '2022-08-24 05:43:37', '2022-08-24 05:43:37'),
+(53, 'trx_win.content', '{\"heading\":\"Latest Transactions And Winners\",\"subheading\":\"Dolor sit amet consectetur adipisicing elit. Ipsa, harum quidem fuga ipsam dolores odio architecto, non neque minima atque nisi temporibus ullam\"}', 0, '2022-08-24 05:44:18', '2022-08-24 05:44:18'),
 (54, 'why_choose_us.content', '{\"has_image\":\"1\",\"heading\":\"Why Choose Xaxino\",\"subheading\":\"Dolor sit amet consectetur adipisicing elit. Ipsa, harum quidem fuga ipsam dolores odio architecto, non neque minima atque nisi tempor\",\"image\":\"6305d01520d811661325333.jpg\"}', 0, '2022-08-24 05:45:33', '2022-08-24 05:45:33'),
 (55, 'why_choose_us.element', '{\"icon\":\"<i class=\\\"far fa-heart\\\"><\\/i>\",\"title\":\"Awesome Gaming Platform\",\"description\":\"Adipisci harum cum, ipsum nulla hic earum quidem repellat ad! At quam odio non harum minima nihil exercitationem ex, distinctio.\"}', 0, '2022-08-24 05:45:47', '2022-08-24 05:45:47'),
 (56, 'why_choose_us.element', '{\"icon\":\"<i class=\\\"fab fa-hubspot\\\"><\\/i>\",\"title\":\"Referral Commission System\",\"description\":\"Adipisci harum cum, ipsum nulla hic earum quidem repellat ad! At quam odio non harum minima nihil exercitationem ex, distinctio.\"}', 0, '2022-08-24 05:46:00', '2022-08-24 05:46:00'),
@@ -261,9 +261,9 @@ INSERT INTO `frontends` (`id`, `data_keys`, `data_values`, `views`, `created_at`
 INSERT INTO `frontends` (`id`, `data_keys`, `data_values`, `views`, `created_at`, `updated_at`) VALUES
 (103, 'blog.element', '{\"has_image\":[\"1\"],\"title\":\"Aut modi soluta nihil, repellat adipisci similique dolores.\",\"preview\":\"Delectus velit adipisci amet offici molestias minus qui praesentium itaque incidunt sunt porro maxime sit veniam facere, reprehen.\",\"description\":\"<p style=\\\"margin-top:20px;margin-right:0px;margin-left:0px;color:rgb(151,175,213);font-size:16px;font-family:Roboto, sans-serif;\\\">Pellentesque\\r\\n magna vel fermentum, libero nulla fermentum integer elit ut maecenas, \\r\\ndiam suspendisse lectus, felis elit cras sint orci. Neque sit donec \\r\\narcu, ornare odio pulvinar ante aliquam, luctus ac ut justo sapien orci \\r\\na, eros blan proin vehicula morbi. Sed dui ut odio tristique, \\r\\nsuspendisse sapien laoreet, placerat lectus ornare placerat, libero ac \\r\\nsapien tincidunt consectetuer, vestibulum vivamus at nonummy sem. Nunc \\r\\nconvallis ornare non eget vitae, lectus pleradibus molestie, egestas \\r\\namet vestibulum ac faucibus mi, ultricies atque ornare malesuada morbi \\r\\nparturient, donec tempus suspendisse scelerisque phasellus. Porttitor \\r\\nultricies porttitor lacus arcu ultricies vitae, tempor mattis arcu sed \\r\\nviverra arcu natus, in wisi wisi dictum commodo erat justo, volutpat \\r\\nelit iaculis. Sit vel mauris nec magna odio. Et vel lobortis et. Aliquam\\r\\n enim felis turpis quis magnis consectetuer, tristique justo pulvinar mi\\r\\n libero maxime lectus. In massa semper reiciendis nulla a ante, quis \\r\\nvel, cras morbi sed.<\\/p><p style=\\\"margin-top:20px;margin-right:0px;margin-left:0px;color:rgb(151,175,213);font-size:16px;font-family:Roboto, sans-serif;\\\">Malesuada\\r\\n massa nibh interdum vel, adipiscing amet, vestibulum pede, nec ut vitae\\r\\n eros volutpat cras. Sed venenatis hymenaeos vestibulum at magna, ipsa \\r\\nmollis posuere ante lorem, sed erat, pulvinar vestibulum. Litora \\r\\npraesent duis eu amet at. Interdum urna eu malesuada vestibulum \\r\\ncurabitur velit, wisi vitae. Nulla sem. Mauris venenatis a vivamus sit, \\r\\negestas magna commodo vestibulum amet libero.<\\/p><p style=\\\"margin-top:20px;margin-right:0px;margin-left:0px;color:rgb(151,175,213);font-size:16px;font-family:Roboto, sans-serif;\\\">Turpis\\r\\n fusce dui, sed dui donec pharetra, integer imperdiet molestie \\r\\ntristique. Eros non et consectetuer sem, saepe nec nunc, feugiat ut \\r\\ntortor cras senectus fusce, euismod etiam mollis pharetra, commodo \\r\\ninceptos arcu aliquam lormet dui sit rutrum feugiat vivamus, integer \\r\\nleo. Hac eu urna eleifend quisque, at urna. Urna vel cras, pulvinar a \\r\\nnam leo gravida pede curabitur. Id justo dignissim pellentesque at, amet\\r\\n odit fusce, sit rutrum justo. Ornare nec nunc nibh consectetuer, \\r\\nullamcorper montes sociis. Etiam luctus porta velit, sed pellentesque \\r\\nmetus commod<\\/p><p style=\\\"margin-top:20px;margin-right:0px;margin-left:0px;color:rgb(151,175,213);font-size:16px;font-family:Roboto, sans-serif;\\\">Enim\\r\\n malesuada massa nibh interdum vel, adipiscing amet, vestibulum pede, \\r\\nnec ut vitae eros volutpat crasSeivenatis hymenaeos vestibulum at magna,\\r\\n ipsa mollis posuere ante lorem, sed erat, pulvinar vestibulum. Litora \\r\\npesent duis eu amet at. Interdum urna eu malesuada vestibulum curabitur \\r\\nvelit, wisi vitae. Nulla sem. Mauris venenatis a vivamus sit, egestas \\r\\nmagna commodo vestibulum, amet libero. commodo erat justo, volutpat elit\\r\\n iaculis. Sit vel mauris nec magna odio. Et vel lobortis et. Aliquam \\r\\nenim felis turpis quis magnis consectetuer, tristique justo pulvinar mi \\r\\nlibero maxime lectus. In massa semper reiciendis nulla a ante quis \\r\\nvelcras morbi sed.<\\/p><p style=\\\"margin-top:20px;margin-right:0px;margin-left:0px;color:rgb(151,175,213);font-size:16px;font-family:Roboto, sans-serif;\\\">Feugiat\\r\\n nibh, dis magna fusce turpis ut ante quam, ante neque non condimentum \\r\\nnec montes, enim vitae interdum. Id elementum enim volutpat pharetra \\r\\nerat sapien. Penatibus tincidunt praesent fringilla, dui eget in \\r\\ntristique nam nullam feugiat, sit auctor integer arcu risus. Aliquam \\r\\ninterdum nulla vestibulum sit, molestie elit eros mi, at nunc eget \\r\\nposuere duis. Gravida cum sit, nam nibh interdum nulla, suspendisse \\r\\nadipiscing fusce wisi. Curabitur ac non aptent volutpat nascetur sed, \\r\\nodio iaculis placerat, neque integer. Sagittis mauris egestas consequat \\r\\nsunt cras, sapien ac nunc magnis nisl, sed mi integer in. Accumsan dui, \\r\\nerat tristique tristique vitae mi augue.<\\/p>\",\"image\":\"6306011c5afd11661337884.jpg\"}', 12, '2022-08-24 07:06:51', '2022-10-19 07:16:25'),
 (104, 'blog.element', '{\"has_image\":[\"1\"],\"title\":\"Aut modi soluta nihil, repellat adipisci similique dolores.\",\"preview\":\"Delectus velit adipisci amet offici molestias minus qui praesentium itaque incidunt sunt porro maxime sit veniam facere, reprehen.\",\"description\":\"<p style=\\\"margin-top:20px;margin-right:0px;margin-left:0px;color:rgb(151,175,213);font-size:16px;font-family:Roboto, sans-serif;\\\">Pellentesque\\r\\n magna vel fermentum, libero nulla fermentum integer elit ut maecenas, \\r\\ndiam suspendisse lectus, felis elit cras sint orci. Neque sit donec \\r\\narcu, ornare odio pulvinar ante aliquam, luctus ac ut justo sapien orci \\r\\na, eros blan proin vehicula morbi. Sed dui ut odio tristique, \\r\\nsuspendisse sapien laoreet, placerat lectus ornare placerat, libero ac \\r\\nsapien tincidunt consectetuer, vestibulum vivamus at nonummy sem. Nunc \\r\\nconvallis ornare non eget vitae, lectus pleradibus molestie, egestas \\r\\namet vestibulum ac faucibus mi, ultricies atque ornare malesuada morbi \\r\\nparturient, donec tempus suspendisse scelerisque phasellus. Porttitor \\r\\nultricies porttitor lacus arcu ultricies vitae, tempor mattis arcu sed \\r\\nviverra arcu natus, in wisi wisi dictum commodo erat justo, volutpat \\r\\nelit iaculis. Sit vel mauris nec magna odio. Et vel lobortis et. Aliquam\\r\\n enim felis turpis quis magnis consectetuer, tristique justo pulvinar mi\\r\\n libero maxime lectus. In massa semper reiciendis nulla a ante, quis \\r\\nvel, cras morbi sed.<\\/p><p style=\\\"margin-top:20px;margin-right:0px;margin-left:0px;color:rgb(151,175,213);font-size:16px;font-family:Roboto, sans-serif;\\\">Malesuada\\r\\n massa nibh interdum vel, adipiscing amet, vestibulum pede, nec ut vitae\\r\\n eros volutpat cras. Sed venenatis hymenaeos vestibulum at magna, ipsa \\r\\nmollis posuere ante lorem, sed erat, pulvinar vestibulum. Litora \\r\\npraesent duis eu amet at. Interdum urna eu malesuada vestibulum \\r\\ncurabitur velit, wisi vitae. Nulla sem. Mauris venenatis a vivamus sit, \\r\\negestas magna commodo vestibulum amet libero.<\\/p><p style=\\\"margin-top:20px;margin-right:0px;margin-left:0px;color:rgb(151,175,213);font-size:16px;font-family:Roboto, sans-serif;\\\">Turpis\\r\\n fusce dui, sed dui donec pharetra, integer imperdiet molestie \\r\\ntristique. Eros non et consectetuer sem, saepe nec nunc, feugiat ut \\r\\ntortor cras senectus fusce, euismod etiam mollis pharetra, commodo \\r\\ninceptos arcu aliquam lormet dui sit rutrum feugiat vivamus, integer \\r\\nleo. Hac eu urna eleifend quisque, at urna. Urna vel cras, pulvinar a \\r\\nnam leo gravida pede curabitur. Id justo dignissim pellentesque at, amet\\r\\n odit fusce, sit rutrum justo. Ornare nec nunc nibh consectetuer, \\r\\nullamcorper montes sociis. Etiam luctus porta velit, sed pellentesque \\r\\nmetus commodo<\\/p><p style=\\\"margin-top:20px;margin-right:0px;margin-left:0px;color:rgb(151,175,213);font-size:16px;font-family:Roboto, sans-serif;\\\">Enim\\r\\n malesuada massa nibh interdum vel, adipiscing amet, vestibulum pede, \\r\\nnec ut vitae eros volutpat crasSeivenatis hymenaeos vestibulum at magna,\\r\\n ipsa mollis posuere ante lorem, sed erat, pulvinar vestibulum. Litora \\r\\npesent duis eu amet at. Interdum urna eu malesuada vestibulum curabitur \\r\\nvelit, wisi vitae. Nulla sem. Mauris venenatis a vivamus sit, egestas \\r\\nmagna commodo vestibulum, amet libero. commodo erat justo, volutpat elit\\r\\n iaculis. Sit vel mauris nec magna odio. Et vel lobortis et. Aliquam \\r\\nenim felis turpis quis magnis consectetuer, tristique justo pulvinar mi \\r\\nlibero maxime lectus. In massa semper reiciendis nulla a ante quis \\r\\nvelcras morbi sed.<\\/p><p style=\\\"margin-top:20px;margin-right:0px;margin-left:0px;color:rgb(151,175,213);font-size:16px;font-family:Roboto, sans-serif;\\\">Feugiat\\r\\n nibh, dis magna fusce turpis ut ante quam, ante neque non condimentum \\r\\nnec montes, enim vitae interdum. Id elementum enim volutpat pharetra \\r\\nerat sapien. Penatibus tincidunt praesent fringilla, dui eget in \\r\\ntristique nam nullam feugiat, sit auctor integer arcu risus. Aliquam \\r\\ninterdum nulla vestibulum sit, molestie elit eros mi, at nunc eget \\r\\nposuere duis. Gravida cum sit, nam nibh interdum nulla, suspendisse \\r\\nadipiscing fusce wisi. Curabitur ac non aptent volutpat nascetur sed, \\r\\nodio iaculis placerat, neque integer. Sagittis mauris egestas consequat \\r\\nsunt cras, sapien ac nunc magnis nisl, sed mi integer in. Accumsan dui, \\r\\nerat tristique tristique vitae mi augue.<\\/p>\",\"image\":\"63060126b38011661337894.jpg\"}', 39, '2022-08-24 07:07:24', '2022-10-16 09:52:06'),
-(105, 'login.content', '{\"has_image\":\"1\",\"title\":\"VIP55 SLOTS ONLINE\",\"subtitle\":\"เข้าสู่ระบบ\",\"image\":\"6305e36cea4e31661330284.jpg\"}', 0, '2022-08-24 07:08:04', '2022-08-24 07:08:05'),
-(106, 'register.content', '{\"has_image\":\"1\",\"title\":\"VIP55 SLOTS ONLINE\",\"subtitle\":\"สมัครสมาชิก\",\"image\":\"6305e38a6e8981661330314.jpg\"}', 0, '2022-08-24 07:08:34', '2022-08-24 07:08:34'),
-(107, 'contact_us.content', '{\"has_image\":\"1\",\"heading\":\"การสนับสนุนด่วน\",\"subheading\":\"คุณจะได้รับข้อมูลทั้งหมด\",\"title\":\"Get in touch\",\"image\":\"6305e3b0bf5fe1661330352.jpg\"}', 0, '2022-08-24 07:09:12', '2022-10-12 03:28:54'),
+(105, 'login.content', '{\"has_image\":\"1\",\"title\":\"Welcome to Xaxino\",\"subtitle\":\"Sit iste delectus iure animi facere. Est veritatis illo officia.\",\"image\":\"6305e36cea4e31661330284.jpg\"}', 0, '2022-08-24 07:08:04', '2022-08-24 07:08:05'),
+(106, 'register.content', '{\"has_image\":\"1\",\"title\":\"Welcome to Xaxino\",\"subtitle\":\"Sit iste delectus iure animi facere. Est veritatis illo officia.\",\"image\":\"6305e38a6e8981661330314.jpg\"}', 0, '2022-08-24 07:08:34', '2022-08-24 07:08:34'),
+(107, 'contact_us.content', '{\"has_image\":\"1\",\"heading\":\"Quick Support\",\"subheading\":\"You can get all information\",\"title\":\"Get in touch\",\"image\":\"6305e3b0bf5fe1661330352.jpg\"}', 0, '2022-08-24 07:09:12', '2022-10-12 03:28:54'),
 (108, 'footer.content', '{\"footer_content\":\"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ea possimus facilis aut veritatis, voluptate ullam, dolorem fugiat maxime cupiditate reiciendis voluptatum  incidunt deserunt.\",\"subscribe_title\":\"Subscribe to get updates\",\"subscribe_content\":\"Lorem ipsum dolor sit amet soluta consectetur adipisicing elit. Iste amet soluta possimus veniam non eaque.\"}', 0, '2022-08-24 07:10:20', '2022-08-24 07:10:20'),
 (109, 'social_icon.element', '{\"title\":\"Facebook\",\"social_icon\":\"<i class=\\\"fab fa-facebook-f\\\"><\\/i>\",\"url\":\"https:\\/\\/www.facebook.com\\/\"}', 0, '2022-08-24 07:11:53', '2022-08-31 10:05:49'),
 (110, 'social_icon.element', '{\"title\":\"Linkedin\",\"social_icon\":\"<i class=\\\"lab la-linkedin-in\\\"><\\/i>\",\"url\":\"https:\\/\\/www.google.com\\/\"}', 0, '2022-08-24 07:12:15', '2022-10-19 06:19:47'),
@@ -284,21 +284,21 @@ INSERT INTO `frontends` (`id`, `data_keys`, `data_values`, `views`, `created_at`
 
 CREATE TABLE `games` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `alias` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `image` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `alias` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1,
   `win` decimal(28,8) DEFAULT 0.00000000 COMMENT 'Win Bonus',
   `max_limit` decimal(28,8) NOT NULL DEFAULT 0.00000000,
   `min_limit` decimal(28,8) NOT NULL DEFAULT 0.00000000,
   `invest_back` tinyint(1) DEFAULT 0,
-  `probable_win` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `type` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `level` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `instruction` text COLLATE utf8_general_ci NOT NULL,
+  `probable_win` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `level` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `instruction` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `games`
@@ -324,17 +324,17 @@ CREATE TABLE `game_logs` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` int(10) NOT NULL DEFAULT 0,
   `game_id` int(10) NOT NULL DEFAULT 0,
-  `user_select` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `result` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `user_select` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `result` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 0,
   `invest` decimal(28,8) NOT NULL DEFAULT 0.00000000,
   `win_amo` decimal(28,8) NOT NULL DEFAULT 0.00000000,
   `try` int(11) DEFAULT 0,
   `win_status` tinyint(1) DEFAULT 0,
-  `game_name` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
+  `game_name` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -346,17 +346,17 @@ CREATE TABLE `gateways` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `form_id` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `code` int(10) DEFAULT NULL,
-  `name` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `alias` varchar(40) COLLATE utf8_general_ci NOT NULL DEFAULT 'NULL',
+  `name` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `alias` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'NULL',
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1=>enable, 2=>disable',
-  `gateway_parameters` text COLLATE utf8_general_ci DEFAULT NULL,
-  `supported_currencies` text COLLATE utf8_general_ci DEFAULT NULL,
+  `gateway_parameters` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `supported_currencies` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `crypto` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0: fiat currency, 1: crypto currency',
-  `extra` text COLLATE utf8_general_ci DEFAULT NULL,
-  `description` text COLLATE utf8_general_ci DEFAULT NULL,
+  `extra` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `gateways`
@@ -400,20 +400,20 @@ INSERT INTO `gateways` (`id`, `form_id`, `code`, `name`, `alias`, `status`, `gat
 
 CREATE TABLE `gateway_currencies` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `currency` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `symbol` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
+  `name` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `currency` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `symbol` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `method_code` int(10) DEFAULT NULL,
-  `gateway_alias` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
+  `gateway_alias` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `min_amount` decimal(28,8) NOT NULL DEFAULT 0.00000000,
   `max_amount` decimal(28,8) NOT NULL DEFAULT 0.00000000,
   `percent_charge` decimal(5,2) NOT NULL DEFAULT 0.00,
   `fixed_charge` decimal(28,8) NOT NULL DEFAULT 0.00000000,
   `rate` decimal(28,8) NOT NULL DEFAULT 0.00000000,
-  `gateway_parameter` text COLLATE utf8_general_ci DEFAULT NULL,
+  `gateway_parameter` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -423,17 +423,17 @@ CREATE TABLE `gateway_currencies` (
 
 CREATE TABLE `general_settings` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `site_name` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `cur_text` varchar(40) COLLATE utf8_general_ci DEFAULT NULL COMMENT 'currency text',
-  `cur_sym` varchar(40) COLLATE utf8_general_ci DEFAULT NULL COMMENT 'currency symbol',
-  `email_from` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `email_template` text COLLATE utf8_general_ci DEFAULT NULL,
-  `sms_body` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `sms_from` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `base_color` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `mail_config` text COLLATE utf8_general_ci DEFAULT NULL COMMENT 'email configuration',
-  `sms_config` text COLLATE utf8_general_ci DEFAULT NULL,
-  `global_shortcodes` text COLLATE utf8_general_ci DEFAULT NULL,
+  `site_name` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cur_text` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'currency text',
+  `cur_sym` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'currency symbol',
+  `email_from` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email_template` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sms_body` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sms_from` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `base_color` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mail_config` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'email configuration',
+  `sms_config` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `global_shortcodes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `kv` tinyint(1) NOT NULL DEFAULT 0,
   `ev` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'email verification, 0 - dont check, 1 - check',
   `en` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'email notification, 0 - dont send, 1 - send',
@@ -446,14 +446,14 @@ CREATE TABLE `general_settings` (
   `dc` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'dc => deposit commission',
   `rb` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'rb => register bonus\r\n',
   `registration` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0: Off	, 1: On',
-  `active_template` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `system_info` text COLLATE utf8_general_ci DEFAULT NULL,
+  `active_template` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `system_info` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `register_bonus` decimal(28,8) NOT NULL DEFAULT 0.00000000,
   `last_cron` datetime DEFAULT NULL,
   `language` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `general_settings`
@@ -475,7 +475,7 @@ CREATE TABLE `guess_bonuses` (
   `status` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -485,12 +485,12 @@ CREATE TABLE `guess_bonuses` (
 
 CREATE TABLE `languages` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `code` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
+  `name` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `code` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `is_default` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0: not default language, 1: default language',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `languages`
@@ -510,15 +510,15 @@ INSERT INTO `languages` (`id`, `name`, `code`, `is_default`, `created_at`, `upda
 CREATE TABLE `notification_logs` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL DEFAULT 0,
-  `sender` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `sent_from` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `sent_to` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `subject` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `message` text COLLATE utf8_general_ci DEFAULT NULL,
-  `notification_type` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
+  `sender` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sent_from` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sent_to` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `subject` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `message` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `notification_type` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -528,17 +528,17 @@ CREATE TABLE `notification_logs` (
 
 CREATE TABLE `notification_templates` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `act` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `name` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `subj` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `email_body` text COLLATE utf8_general_ci DEFAULT NULL,
-  `sms_body` text COLLATE utf8_general_ci DEFAULT NULL,
-  `shortcodes` text COLLATE utf8_general_ci DEFAULT NULL,
+  `act` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `subj` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email_body` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sms_body` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `shortcodes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email_status` tinyint(1) NOT NULL DEFAULT 1,
   `sms_status` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `notification_templates`
@@ -573,14 +573,14 @@ INSERT INTO `notification_templates` (`id`, `act`, `name`, `subj`, `email_body`,
 
 CREATE TABLE `pages` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `slug` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `tempname` varchar(40) COLLATE utf8_general_ci DEFAULT NULL COMMENT 'template name',
-  `secs` text COLLATE utf8_general_ci DEFAULT NULL,
+  `name` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `slug` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tempname` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'template name',
+  `secs` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `is_default` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `pages`
@@ -600,10 +600,10 @@ INSERT INTO `pages` (`id`, `name`, `slug`, `tempname`, `secs`, `is_default`, `cr
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `token` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
+  `email` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `token` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -618,7 +618,7 @@ CREATE TABLE `referrals` (
   `status` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -628,10 +628,10 @@ CREATE TABLE `referrals` (
 
 CREATE TABLE `subscribers` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `email` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
+  `email` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -642,10 +642,10 @@ CREATE TABLE `subscribers` (
 CREATE TABLE `support_attachments` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `support_message_id` int(10) UNSIGNED DEFAULT NULL,
-  `attachment` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `attachment` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -657,10 +657,10 @@ CREATE TABLE `support_messages` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `support_ticket_id` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `admin_id` int(10) UNSIGNED NOT NULL DEFAULT 0,
-  `message` longtext COLLATE utf8_general_ci DEFAULT NULL,
+  `message` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -671,16 +671,16 @@ CREATE TABLE `support_messages` (
 CREATE TABLE `support_tickets` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` int(10) DEFAULT 0,
-  `name` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `email` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `ticket` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `subject` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `name` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ticket` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `subject` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0: Open, 1: Answered, 2: Replied, 3: Closed',
   `priority` tinyint(1) NOT NULL DEFAULT 0 COMMENT '1 = Low, 2 = medium, 3 = heigh',
   `last_reply` datetime DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -694,13 +694,13 @@ CREATE TABLE `transactions` (
   `amount` decimal(28,8) NOT NULL DEFAULT 0.00000000,
   `charge` decimal(28,8) NOT NULL DEFAULT 0.00000000,
   `post_balance` decimal(28,8) NOT NULL DEFAULT 0.00000000,
-  `trx_type` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `trx` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `details` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `remark` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
+  `trx_type` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `trx` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `details` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `remark` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -710,33 +710,33 @@ CREATE TABLE `transactions` (
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `firstname` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `lastname` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `username` varchar(40) COLLATE utf8_general_ci NOT NULL,
-  `email` varchar(40) COLLATE utf8_general_ci NOT NULL,
-  `country_code` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `mobile` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
+  `firstname` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `lastname` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `username` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `country_code` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mobile` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `ref_by` int(10) UNSIGNED DEFAULT NULL,
   `balance` decimal(28,8) NOT NULL DEFAULT 0.00000000,
-  `password` varchar(255) COLLATE utf8_general_ci NOT NULL,
-  `image` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `address` text COLLATE utf8_general_ci DEFAULT NULL COMMENT 'contains full address',
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'contains full address',
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '0: banned, 1: active',
   `ev` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0: email unverified, 1: email verified',
   `sv` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0: sms unverified, 1: sms verified',
-  `ver_code` varchar(40) COLLATE utf8_general_ci DEFAULT NULL COMMENT 'stores verification code',
+  `ver_code` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'stores verification code',
   `ver_code_send_at` datetime DEFAULT NULL COMMENT 'verification send time',
   `ts` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0: 2fa off, 1: 2fa on',
   `tv` tinyint(1) NOT NULL DEFAULT 1 COMMENT '0: 2fa unverified, 1: 2fa verified',
-  `tsc` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `remember_token` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
-  `kyc_data` text COLLATE utf8_general_ci DEFAULT NULL,
+  `tsc` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `remember_token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `kyc_data` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `kv` tinyint(1) NOT NULL DEFAULT 0,
   `profile_complete` tinyint(1) NOT NULL DEFAULT 0,
-  `ban_reason` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `ban_reason` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -747,17 +747,17 @@ CREATE TABLE `users` (
 CREATE TABLE `user_logins` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
-  `user_ip` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `city` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `country` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `country_code` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `longitude` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `latitude` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `browser` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `os` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
+  `user_ip` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `city` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `country` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `country_code` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `longitude` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `latitude` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `browser` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `os` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -770,18 +770,18 @@ CREATE TABLE `withdrawals` (
   `method_id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `amount` decimal(28,8) NOT NULL DEFAULT 0.00000000,
-  `currency` varchar(40) COLLATE utf8_general_ci NOT NULL,
+  `currency` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
   `rate` decimal(28,8) NOT NULL DEFAULT 0.00000000,
   `charge` decimal(28,8) NOT NULL DEFAULT 0.00000000,
-  `trx` varchar(40) COLLATE utf8_general_ci NOT NULL,
+  `trx` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
   `final_amount` decimal(28,8) NOT NULL DEFAULT 0.00000000,
   `after_charge` decimal(28,8) NOT NULL DEFAULT 0.00000000,
-  `withdraw_information` text COLLATE utf8_general_ci DEFAULT NULL,
+  `withdraw_information` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '1=>success, 2=>pending, 3=>cancel, ',
-  `admin_feedback` text COLLATE utf8_general_ci DEFAULT NULL,
+  `admin_feedback` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -792,18 +792,18 @@ CREATE TABLE `withdrawals` (
 CREATE TABLE `withdraw_methods` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `form_id` int(10) UNSIGNED NOT NULL DEFAULT 0,
-  `name` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
+  `name` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `min_limit` decimal(28,8) DEFAULT 0.00000000,
   `max_limit` decimal(28,8) NOT NULL DEFAULT 0.00000000,
   `fixed_charge` decimal(28,8) DEFAULT 0.00000000,
   `rate` decimal(28,8) DEFAULT 0.00000000,
   `percent_charge` decimal(5,2) DEFAULT NULL,
-  `currency` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
-  `description` text COLLATE utf8_general_ci DEFAULT NULL,
+  `currency` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Indexes for dumped tables
