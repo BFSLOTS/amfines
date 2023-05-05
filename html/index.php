@@ -1,55 +1,33 @@
 <?php
 
-use Illuminate\Contracts\Http\Kernel;
-use Illuminate\Http\Request;
+require "core.php";
 
-define('LARAVEL_START', microtime(true));
+// Title
 
-/*
-|--------------------------------------------------------------------------
-| Check If The Application Is Under Maintenance
-|--------------------------------------------------------------------------
-|
-| If the application is in maintenance / demo mode via the "down" command
-| we will load this file so that any pre-rendered content can be shown
-| instead of starting the framework, which could cause an exception.
-|
-*/
+$titleHeader = getTitle($connect);
 
-if (file_exists($maintenance = __DIR__.'/core/storage/framework/maintenance.php')) {
-    require $maintenance;
-}
+// Featured Movies
 
-/*
-|--------------------------------------------------------------------------
-| Register The Auto Loader
-|--------------------------------------------------------------------------
-|
-| Composer provides a convenient, automatically generated class loader for
-| this application. We just need to utilize it! We'll simply require it
-| into the script here so we don't need to manually load our classes.
-|
-*/
+$featuredMovies = getFeaturedMovies($connect, $site_config['items_featured']);
 
-require __DIR__.'/core/vendor/autoload.php';
+// Recent Movies
 
-/*
-|--------------------------------------------------------------------------
-| Run The Application
-|--------------------------------------------------------------------------
-|
-| Once we have the application, we can handle the incoming request using
-| the application's HTTP kernel. Then, we will send the response back
-| to this client's browser, allowing them to enjoy our application.
-|
-*/
+$recentMovies = getRecentMovies($connect, $site_config['items_recent']);
 
-$app = require_once __DIR__.'/core/bootstrap/app.php';
 
-$kernel = $app->make(Kernel::class);
+// Featured Series
 
-$response = $kernel->handle(
-    $request = Request::capture()
-)->send();
+$featuredSeries = getFeaturedSeries($connect, $site_config['items_featured']);
 
-$kernel->terminate($request, $response);
+// Recent Series
+
+$recentSeries = getRecentSeries($connect, $site_config['items_recent']);
+
+require './header.php';
+require './top.php';
+require './views/index.view.php';
+require './sidemenu.php';
+require './bottom.php';
+require './footer.php';
+
+?>
